@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>每天写代码 | Shark’s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="翻译一篇来自John Resig的文章，John Resig, jQuery的创始人和技术领袖，目前在Mozilla担任JavaScript工具开发工程师。著有《Pro JavaScript Techniques》（即《精通JavaScript》）等经典JavaScript书籍。
+
+最近, 在我的项目coding side projects上: 我没有取到足够的进展,我希望不需要牺牲我在可汉学院">
+<meta property="og:type" content="article">
+<meta property="og:title" content="每天写代码">
+<meta property="og:url" content="http://yoursite.com/2015/07/12/每天写代码/index.html">
+<meta property="og:site_name" content="Shark’s blog">
+<meta property="og:description" content="翻译一篇来自John Resig的文章，John Resig, jQuery的创始人和技术领袖，目前在Mozilla担任JavaScript工具开发工程师。著有《Pro JavaScript Techniques》（即《精通JavaScript》）等经典JavaScript书籍。
+
+最近, 在我的项目coding side projects上: 我没有取到足够的进展,我希望不需要牺牲我在可汉学院">
+<meta property="og:image" content="http://yoursite.com/img/2.jpg">
+<meta property="og:image" content="http://yoursite.com/img/1.jpg">
+<meta property="og:updated_time" content="2016-07-04T07:27:37.979Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="每天写代码">
+<meta name="twitter:description" content="翻译一篇来自John Resig的文章，John Resig, jQuery的创始人和技术领袖，目前在Mozilla担任JavaScript工具开发工程师。著有《Pro JavaScript Techniques》（即《精通JavaScript》）等经典JavaScript书籍。
+
+最近, 在我的项目coding side projects上: 我没有取到足够的进展,我希望不需要牺牲我在可汉学院">
+<meta name="twitter:image" content="http://yoursite.com/img/2.jpg">
+  
+    <link rel="alternative" href="/atom.xml" title="Shark’s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/tim.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/img/author.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Lee</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">My study notes</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>Tags</li>
+						
+						
+						<li>Über</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/liguanrui" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/u/2013245482" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="#" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/PHP/" style="font-size: 20px;">PHP</a> <a href="/tags/感悟/" style="font-size: 15px;">感悟</a> <a href="/tags/翻译/" style="font-size: 10px;">翻译</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">周末下午=鱼罐头/午餐肉/炸鸡块+可乐罐/啤酒罐+盒仔饭/艇仔粥/即食面+轻音乐/肥皂剧/热网综+水果糖/甜布丁</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Lee</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/img/author.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Lee</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">My study notes</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/liguanrui" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/u/2013245482" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-每天写代码" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/07/12/每天写代码/" class="article-date">
+  	<time datetime="2015-07-11T16:00:00.000Z" itemprop="datePublished">2015-07-12</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      每天写代码
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/翻译/">翻译</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>翻译一篇来自John Resig的文章，John Resig, jQuery的创始人和技术领袖，目前在Mozilla担任JavaScript工具开发工程师。著有《Pro JavaScript Techniques》（即《精通JavaScript》）等经典JavaScript书籍。</p>
+</blockquote>
+<p>最近, 在我的项目<a href="https://github.com/jeresig" target="_blank" rel="external">coding side projects</a>上: 我没有取到足够的进展,我希望不需要牺牲我在可汉学院(<a href="https://www.khanacademy.org/" target="_blank" rel="external">Khan Academy</a>)的工作，我也可以做很多东西。<br><a id="more"></a></p>
+<p>在我的项目工作中遇到几个问题，我一般在周末或平时晚上的一些空余时间工作。事实证明，我没有一个很好的策略。我顶着难以置信的压力，试图在空余时间尽可能地完成高质量的工作（如果不这样的话，我就感觉自己是一个失败者）。 这样就会有一个问题，没人可以保证每个周末都是空闲的，或者这样说，我不想把所有计划都安排到这两天（牺牲掉所有放松和娱乐的时间）.</p>
+<p>还有这样的一个问题，一个星期是很长的一段时间，以周为单位时间计算的工作，你很容易忘记你上一周做了什么（即使你有记录）。更不用说你错过了一个周末而导致的巨大的两周时间差距。大量多周的时间切换可能是致命的（我很多个项目就是因为太长时间不关注而被迫停下来）.</p>
+<p><a href="http://jenniferdewalt.com/" target="_blank" rel="external">Jennifer Dewalt</a> 去年完成了令人难以置信的工作，她用180天的时间自学编程，还构建了web站点。由此我得到了灵感，我必须尝试类似的策略，我希望每天都可以在我的项目上工作，而不仅仅只是周末。</p>
+<p><img src="/img/2.jpg" alt="每天写代码"></p>
+<p>我决定为我自己制定一些规则:</p>
+<p>我必须每天都写代码。除了我写的代码之外,我还可以写文档，或者博客文章，或者其他的一些东西。<br>一定是要有用的代码. 没有调好缩进，没有代码格式化，如果有可能的话，尽量不需要重构。（所有的东西都是允许的，而不是单独的）</p>
+<p>必须在晚上12点之前把代码写完代码必须开源，上传到Github上面.</p>
+<p>这些规则是灵活的，之所以规定要在晚上12点之前把所有技术性的代码工作完成，是因为要避免熬夜而造成代码潦草的问题。而对于一定要在github上面开源，这可以迫使我更加关注我的代码质量（在整个过程中思考可重用性和建模优化）。</p>
+<p>到目前为止，我一直很成功，我将近20周的连续工作。完全改变了我的代码习惯，以及对我的生活和精神都产生了极大的影响。</p>
+<p><img src="/img/1.jpg" alt="每天写代码"></p>
+<p>本着这样的想法，改变习惯而发生了许多有趣的事情：</p>
+<p>可行的最低守则. 我被迫每天至少保持30分钟编写代码的习惯。（真的很难在这么短的时间内写一些有用的代码，特别是你要很好地连接上一天的工作进度），所以我一般会超出预期的一点时间（通常还是在一个小时之内的）而周末我有时可以保证一整天的空闲时间。</p>
+<p>代码习惯.要注意的一点是，我通常不会特别关注github上面的图表数据。我比较关注从这个实验中得到什么：这是一个可以改变你生活习惯的机会，并不是为了别人而改变去适应工作 。这同样适用于任何形式的节食或运动：如果你不关心提高自己,那么你永远不会真正成功。</p>
+<p>对抗焦虑.在没有开始这个实验之前，我常常因为我没有在工作中得到足够的进展而觉得十分焦虑。（对于这些没有量化的项目都是没有期限的）我意识到”取得进展的感觉” 必须依靠实际工作中的工作进度. 这是显而易见的，如果工作一直得不到任何进展，我会变得越来越焦虑。在没有完成固定的工作量的情况，我无法充满欲求地完成任何工作。</p>
+<p>周末.不要把周末时间当做你这个项目最重要的时间来院(一般情况, 很少重大的项目完全是靠周末的时间来完成的). 这不是一件好事情，你要学会评估你的周末时间是否会给你的项目带来重大变化。我通常在完成了我所有的工作之后吃点我喜欢的点心，逛一下博物馆， 花点时间和我的工作伙伴去一下公园走走）,而不应该是安排过多的工作，甚至排除所有休闲和娱乐的时间。</p>
+<p>潜意识思考. 每天做业余项目写代码有一个有趣的副作用，那就是大脑会在潜意识里思考。因此，当我在散步、淋浴或从事其他非脑力活动时，我还在想着下一步代码该怎么写、出现问题了有什么解决的好方法，以前我每星期或者隔一个星期写一次代码从没出现过这样的情况。时间用来思考自然就不会再为业余项目取得的进展少而焦虑了。</p>
+<p>每天写一点代码不易忘. 当接头做业余项目时总要付出“上下文切换”的代价，然而不幸的是思考是很难接上头的。所以我每天都做一点业余项目，让自己不容易忘记。</p>
+<p>管理好时间，平衡工作、生活、业余项目.现在的我已简单地学会了如何更好地维持工作、生活、业余项目的平衡，我知道自己每天都要做业余项目，所以我会更好地管理时间。如果我晚上有活动且很晚才能回家，那么我会在开始工作之前就做好当天的业余项目。假如当天的业余项目没有做完，那么不论多晚我都会完成，做到今日事今日毕。</p>
+<p>Outward perception. 我很难相信自己在过去的几个月写了很多的代码。我新建了几个网站，重新写了框架并创建了大量节点模块。我已经写了这么多以至于有时我都忘记自己写了些什么，但是我真的很高兴我写了这么多的代码。</p>
+<p>要及时跟外界沟通 当自己养成了新的习惯后跟外界沟通这是很有好处的。我的伙伴们都知道我每天写代码这个习惯，因此有活动安排时我会跟他们说：“等我写完代码再去。”他们一点都不会介意也很理解我的行为。</p>
+<p><em>出自 <a href="http://ejohn.org/category/blog" target="_blank" rel="external">http://ejohn.org/category/blog</a></em></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/07/18/类型管理者/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          类型管理者
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/07/12/如何建立你的日志系统/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">如何建立你的日志系统</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="每天写代码" data-title="每天写代码" data-url="http://yoursite.com/2015/07/12/每天写代码/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 Lee
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

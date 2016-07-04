@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>如何建立你的日志系统 | Shark’s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前言这段时间罐头在开发公司的一个工作流系统，这个系统需要一个强壮的日志记录功能。基本需求如下：
+
+所有该系统的用户登录、登出需要记录日志
+用户在该系统进行的任何操作需要记录日志（换言之，所有数据库的增删改都需要记录）
+在每个子功能下面显示动态模板，管理员可以方便地查看日志。日志必须正确地显示每个字段的注释意义，而且还需要显示新值和旧值。
+管理员可以为本子功能模块下面的日志添加和修改备注。
+管理可以">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何建立你的日志系统">
+<meta property="og:url" content="http://yoursite.com/2015/07/12/如何建立你的日志系统/index.html">
+<meta property="og:site_name" content="Shark’s blog">
+<meta property="og:description" content="前言这段时间罐头在开发公司的一个工作流系统，这个系统需要一个强壮的日志记录功能。基本需求如下：
+
+所有该系统的用户登录、登出需要记录日志
+用户在该系统进行的任何操作需要记录日志（换言之，所有数据库的增删改都需要记录）
+在每个子功能下面显示动态模板，管理员可以方便地查看日志。日志必须正确地显示每个字段的注释意义，而且还需要显示新值和旧值。
+管理员可以为本子功能模块下面的日志添加和修改备注。
+管理可以">
+<meta property="og:updated_time" content="2016-07-04T07:24:35.392Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="如何建立你的日志系统">
+<meta name="twitter:description" content="前言这段时间罐头在开发公司的一个工作流系统，这个系统需要一个强壮的日志记录功能。基本需求如下：
+
+所有该系统的用户登录、登出需要记录日志
+用户在该系统进行的任何操作需要记录日志（换言之，所有数据库的增删改都需要记录）
+在每个子功能下面显示动态模板，管理员可以方便地查看日志。日志必须正确地显示每个字段的注释意义，而且还需要显示新值和旧值。
+管理员可以为本子功能模块下面的日志添加和修改备注。
+管理可以">
+  
+    <link rel="alternative" href="/atom.xml" title="Shark’s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/tim.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/img/author.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Lee</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">My study notes</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>Tags</li>
+						
+						
+						<li>Über</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/liguanrui" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/u/2013245482" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="#" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/PHP/" style="font-size: 20px;">PHP</a> <a href="/tags/感悟/" style="font-size: 15px;">感悟</a> <a href="/tags/翻译/" style="font-size: 10px;">翻译</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">周末下午=鱼罐头/午餐肉/炸鸡块+可乐罐/啤酒罐+盒仔饭/艇仔粥/即食面+轻音乐/肥皂剧/热网综+水果糖/甜布丁</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Lee</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/img/author.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Lee</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">My study notes</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/liguanrui" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/u/2013245482" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-如何建立你的日志系统" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/07/12/如何建立你的日志系统/" class="article-date">
+  	<time datetime="2015-07-11T16:00:00.000Z" itemprop="datePublished">2015-07-12</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      如何建立你的日志系统
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PHP/">PHP</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>这段时间<code>罐头</code>在开发公司的一个<code>工作流系统</code>，这个系统需要一个强壮的日志记录功能。基本需求如下：</p>
+<ol>
+<li>所有该系统的用户登录、登出需要记录日志</li>
+<li>用户在该系统进行的任何操作需要记录日志<br>（换言之，<code>所有数据库的增删改</code>都需要记录）</li>
+<li>在每个子功能下面显示动态模板，管理员可以方便地查看日志。日志必须正确地显示<code>每个字段的注释意义</code>，而且还需要显示<code>新值</code>和<code>旧值</code>。</li>
+<li>管理员可以为本子功能模块下面的日志添加和修改备注。</li>
+<li>管理可以操作批量展开/闭合日志，对日志列表顺序/逆序展示。<a id="more"></a>
+</li>
+</ol>
+<h4 id="讨论"><a href="#讨论" class="headerlink" title="讨论"></a>讨论</h4><p>说实话，看到需求的时候确实有点无语了，就差没bibi了。没法子，谁叫开发是万能的。</p>
+<p>我们先抛开<code>1</code>、<code>4</code>、<code>5</code>：无谓的登陆/登出，展开/闭合，顺序/逆序……集中思路来看看这个<code>2</code>、<code>3</code>。我们讨论这个强壮的日志系统是否可以实现？</p>
+<h5 id="所有数据库增删改都需要记录"><a href="#所有数据库增删改都需要记录" class="headerlink" title="所有数据库增删改都需要记录"></a>所有数据库增删改都需要记录</h5><p>换言之，第一，我们需要设计一个适用所有场景的日志表结构。总不可能为每张表都建立一张与之对应的日志表吧。第二，整个系统必须符合MVC设计，我们需要把写日志的接口建立在model层。</p>
+<h5 id="需要一个解析日志通用接口"><a href="#需要一个解析日志通用接口" class="headerlink" title="需要一个解析日志通用接口"></a>需要一个解析日志通用接口</h5><p>需求提到需要显示字段注释的意义，还要显示新值和旧值。基本思路是，我们在记录日志时，存放差异集合。差异集合必须包含字段名、新值、老值、字段类型、字段注释。这才有可能正确地展示日志。</p>
+<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><h5 id="通用的日志表"><a href="#通用的日志表" class="headerlink" title="通用的日志表"></a>通用的日志表</h5><p>记录对应哪张表的日志信息：relate_table、relate_id<br>记录操作者信息：operator、 operate_time、 operate_msg<br>记录触发按钮、或者可以说是触发方法：trigger<br>记录类型 - 增删改，有利于后面解析日志：type<br>记录父子级关系，主要处理关联表日志：parent<br>记录修改字段和数据值：restore_arr</p>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>relate_table</th>
+<th>relate_id</th>
+<th>operator</th>
+<th>operate_time</th>
+<th>operate_msg</th>
+<th>trigger</th>
+<th>type</th>
+<th>parent</th>
+<th>restore_arr</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>关联表</td>
+<td>关联表主键</td>
+<td>操作者</td>
+<td>操作时间</td>
+<td>操作备注</td>
+<td>触发按钮</td>
+<td>类型</td>
+<td>父级</td>
+<td>新老数据(json格式)</td>
+</tr>
+</tbody>
+</table>
+<h5 id="restore-arr的数据结构"><a href="#restore-arr的数据结构" class="headerlink" title="restore_arr的数据结构"></a>restore_arr的数据结构</h5><p>restore_arr字段是以json格式记录了差异集合的，这种设计才使得历史表变得通用成为现实。下面来看看restore_arr的设计：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">restore_arr:&#123;</div><div class="line">    state:&#123;old:1,new:2&#125;,</div><div class="line">    begin:&#123;old:1320981071,new:1320981072&#125;,</div><div class="line">    name:&#123;old:&quot;lee&quot;,new:&quot;shark&quot;&#125;,</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这里看到，我们并没有记录字段的注释、类型。糟糕，我们还需要解析这一串json字段的意思给管理者。总不能直接解析：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">修改了state，新值为1，旧值为2。</div><div class="line">修改了begin，新增为1320981071，旧值为1320981072。</div></pre></td></tr></table></figure>
+<p>而正确的，应该为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">修改了状态，新值为禁用，旧值为启用</div><div class="line">修改了开始时间，新值为2011-11-11 11:11:11，旧值为2011-11-11 11:11:12</div></pre></td></tr></table></figure>
+<p>利用数据的注释<br>由于在保存差异集的时候，并没有保存字段注释，类型。所有为了完整的暂时日志信息，我们需要充分地利用数据库注释。</p>
+<p>待续……</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/07/12/每天写代码/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          每天写代码
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/11/12/Mozilla的发展史/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Mozilla</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="如何建立你的日志系统" data-title="如何建立你的日志系统" data-url="http://yoursite.com/2015/07/12/如何建立你的日志系统/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 Lee
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

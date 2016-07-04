@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>关于OAuth2的登录问题追查 | Shark’s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="案例回顾一开始测试人员在做测试的时候，偶尔会冒出一个很奇怪的问题：同时3个人登陆，或者打某些页面。服务器会异常卡，最后宕掉！
+问题追踪1. 缓存过大？登陆需要注册session，session数据量比较大（包含整个权限数组！）打开美术页面需要远程请求认证系统，获取整张用户表信息缓存起来。（\$this-&amp;gt;cache-&amp;gt;store(“userList”, $userList ) )">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于OAuth2的登录问题追查">
+<meta property="og:url" content="http://yoursite.com/2015/08/17/关于OAuth2的登录问题追查/index.html">
+<meta property="og:site_name" content="Shark’s blog">
+<meta property="og:description" content="案例回顾一开始测试人员在做测试的时候，偶尔会冒出一个很奇怪的问题：同时3个人登陆，或者打某些页面。服务器会异常卡，最后宕掉！
+问题追踪1. 缓存过大？登陆需要注册session，session数据量比较大（包含整个权限数组！）打开美术页面需要远程请求认证系统，获取整张用户表信息缓存起来。（\$this-&amp;gt;cache-&amp;gt;store(“userList”, $userList ) )">
+<meta property="og:updated_time" content="2016-07-04T07:42:31.086Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="关于OAuth2的登录问题追查">
+<meta name="twitter:description" content="案例回顾一开始测试人员在做测试的时候，偶尔会冒出一个很奇怪的问题：同时3个人登陆，或者打某些页面。服务器会异常卡，最后宕掉！
+问题追踪1. 缓存过大？登陆需要注册session，session数据量比较大（包含整个权限数组！）打开美术页面需要远程请求认证系统，获取整张用户表信息缓存起来。（\$this-&amp;gt;cache-&amp;gt;store(“userList”, $userList ) )">
+  
+    <link rel="alternative" href="/atom.xml" title="Shark’s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/tim.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/img/author.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Lee</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">My study notes</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>Tags</li>
+						
+						
+						<li>Über</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/liguanrui" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/u/2013245482" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="#" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/PHP/" style="font-size: 20px;">PHP</a> <a href="/tags/感悟/" style="font-size: 15px;">感悟</a> <a href="/tags/翻译/" style="font-size: 10px;">翻译</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">周末下午=鱼罐头/午餐肉/炸鸡块+可乐罐/啤酒罐+盒仔饭/艇仔粥/即食面+轻音乐/肥皂剧/热网综+水果糖/甜布丁</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Lee</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/img/author.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Lee</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">My study notes</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/liguanrui" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/u/2013245482" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-关于OAuth2的登录问题追查" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/08/17/关于OAuth2的登录问题追查/" class="article-date">
+  	<time datetime="2015-08-16T16:00:00.000Z" itemprop="datePublished">2015-08-17</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      关于OAuth2的登录问题追查
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PHP/">PHP</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="案例回顾"><a href="#案例回顾" class="headerlink" title="案例回顾"></a>案例回顾</h3><p>一开始<code>测试人员</code>在做测试的时候，偶尔会冒出一个很奇怪的问题：同时3个人登陆，或者打某些页面。服务器会异常卡，最后宕掉！</p>
+<h3 id="问题追踪"><a href="#问题追踪" class="headerlink" title="问题追踪"></a>问题追踪</h3><h4 id="1-缓存过大？"><a href="#1-缓存过大？" class="headerlink" title="1. 缓存过大？"></a>1. 缓存过大？</h4><p>登陆需要注册session，session数据量比较大（包含整个权限数组！）<br>打开美术页面需要远程请求认证系统，获取整张用户表信息缓存起来。（\$this-&gt;cache-&gt;store(“userList”, $userList ) )<br><a id="more"></a></p>
+<p><strong>注：</strong>如果保存数据到memcached时, 数据量过大 1063648 字节(超过了1m), 只写了 786434 字节, 导致部分数据没写成功. 初步怀疑是保存的数据量过大。</p>
+<p><strong>排除：</strong>在store之前检查一下数据容量！数据并没有这么大，而且缓存过大也不会导致服务宕掉。</p>
+<h4 id="2-并发请求用户信息，store阻塞？"><a href="#2-并发请求用户信息，store阻塞？" class="headerlink" title="2. 并发请求用户信息，store阻塞？"></a>2. 并发请求用户信息，store阻塞？</h4><p>由于用户信息，经常性得使用。这里的用户信息又不存在本系统，需要远程获取。为了减少远程拉取的次数，设计成缓冲一个小时的用户数据，代码如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 人事信息基本原型</div><div class="line">*/</div><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getAllUsers</span><span class="params">( $del=false )</span></span>&#123;</div><div class="line">	$key = md5(<span class="string">"class:"</span>.<span class="keyword">__CLASS__</span>.<span class="string">"+function:"</span>.<span class="keyword">__FUNCTION__</span>);</div><div class="line">	<span class="keyword">if</span>( $del )&#123;</div><div class="line">		<span class="keyword">$this</span>-&gt;cache-&gt;delete($key);</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">if</span>( ! $rs = <span class="keyword">$this</span>-&gt;cache-&gt;fetch($key) )&#123;</div><div class="line">		<span class="comment">//远程拉取</span></div><div class="line">		$res = <span class="keyword">$this</span>-&gt;o-&gt;getAllUser(<span class="keyword">$this</span>-&gt;openId, <span class="keyword">$this</span>-&gt;token);</div><div class="line">		$res = json_decode($res,<span class="keyword">true</span>);</div><div class="line">		<span class="keyword">if</span>($res[<span class="string">'result'</span>]===<span class="number">1</span>)&#123;</div><div class="line">			$rs= $res[<span class="string">'data'</span>];</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">if</span> ( $rs ) &#123;</div><div class="line">			<span class="keyword">$this</span>-&gt;cache-&gt;store ( $key, $rs );</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">return</span> $rs;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>注：</strong>这里采取的策略是不公平的。因为第一个用户进来页面，暂时没有用户数据，后台会拉取数据缓存起来。第二用户，就不需要额外请求。直到一个小时缓存失效才又拉取。猜想会不会由于请求拉取用户的时间过长。在第一个用户发生拉取动作，等待请求响应时。第二用户来了，同样发起请求。从而导致阻塞。<br><strong>排除：</strong>服务器的并发量不至于这么小吧。在没有发生用户拉取的情况，比如登陆，也会出现服务器宕掉的情况。</p>
+<h4 id="3-密码加-解密？"><a href="#3-密码加-解密？" class="headerlink" title="3. 密码加/解密？"></a>3. 密码加/解密？</h4><p>做了一个小实验，叫上俩个人，每人同时打开两个浏览器，同时点击登陆。神奇的事情发生了。服务宕掉！<br>由于该系统的登陆比较特殊，参考了OAuth2的设计原理。可疑的点很多，断点逐步检查，初步估计是程序卡在某个死循环里面。<br><strong>注：</strong>登陆的时候用了一个特殊可逆加密方法—authcode（discuz 经典php加密解密函数），每次登陆至少要使用4次这个方法加/解密。这个加密算法里面有大量的循环计算。<br><strong>排除：</strong>碰巧有内网另外一个系统也用了这个加密方法来处理cookie，然而该系统在线上运行颇久，从来没发生过服务器宕掉的情况。<br>另外，自己写了一个小demo，用ab测试发起请求，100次的并发没任何问题。</p>
+<h4 id="4-curl阻塞？"><a href="#4-curl阻塞？" class="headerlink" title="4. curl阻塞？"></a>4. curl阻塞？</h4><p>终于把矛头指向OAuth2的设计上面来了。这里说一下OAuth2的基本实现原理：</p>
+<p><strong>可疑点在于：</strong>登陆验证和确认授权。登陆验证在2.3曾讨论过了，这里来看一下登陆验证密码通过之后会发生什么事。<br><strong>注：</strong>登陆验证是在认证系统域名下进行的。基本过程：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="number">4.1</span> 输入用户/密码，POST 到 open.lee.com/index.php?action=authLogin;</div><div class="line"><span class="number">4.2</span> 验证密码通过，自动授权/主动授权。认证系统会返回该用户的token、OpenID;</div><div class="line"><span class="number">4.3</span> 根据token、OpenID等拼凑CallBack地址，location回到im.lee.com/index.php?action=CallBack……</div><div class="line"><span class="number">4.4</span> CallBack非常忙碌~，而且很关键。先后进行;</div><div class="line">  <span class="number">4.4</span><span class="number">.1</span> getToken：根据token，远程获取OpenID，保存到数据库;</div><div class="line">  <span class="number">4.4</span><span class="number">.2</span> getUserInfo：根据token+OpenID，远程获取用户信息，注册session+cookie;</div><div class="line">  <span class="number">4.4</span><span class="number">.3</span> getAllAuth：根据token+OpenID，远程获取用户权限列表，注册到session。</div></pre></td></tr></table></figure>
+<p>关于<code>4.4</code>需要后台分别构造三次Curl请求到Open获取一些用户权限信息。<br>猜想：Curl会阻塞。三个用户ＡＢＣ同时进来，顺序可能是这样的：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="number">08</span>:<span class="number">00</span> A-&gt;getToken()</div><div class="line"><span class="number">08</span>:<span class="number">01</span> B-&gt;getToken()</div><div class="line"><span class="number">08</span>:<span class="number">02</span> C-&gt;getToken()</div><div class="line"><span class="number">08</span>:<span class="number">03</span> A-&gt;getUserInfo()</div><div class="line"><span class="number">08</span>:<span class="number">04</span> B-&gt;getUserInfo()</div><div class="line"><span class="number">08</span>:<span class="number">05</span> C-&gt;getUserInfo()</div><div class="line"><span class="number">08</span>:<span class="number">06</span> A-&gt;getAllAuth()</div><div class="line"><span class="number">08</span>:<span class="number">07</span> B-&gt;getAllAuth()</div><div class="line"><span class="number">08</span>:<span class="number">08</span> C-&gt;getAllAuth()</div></pre></td></tr></table></figure>
+<p>在于用户层来看这只是属于一次请求，然后这次请求很容易就会超时。A从08:00开始请求等到08:06才完成响应。<br><strong>排除：</strong>被主管告知，不同用户访问站点，会实例化不同单独的进程来处理的，不会出现阻塞。也就是说实际却是这样的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">08:00 A-&gt;getToken()</div><div class="line">08:00 B-&gt;getToken()</div><div class="line">08:00 C-&gt;getToken()</div></pre></td></tr></table></figure>
+<h4 id="5-max-children-5！"><a href="#5-max-children-5！" class="headerlink" title="5. max_children=5！"></a>5. max_children=5！</h4><p><strong>解析：</strong>max_children是PHP-FPM Pool 最大的子进程数,他数值取决于你的服务器内存。 假设你打算给10G内存给当前配置的PHP-FPM Pool，一般一个PHP请求占用内存10M-40M，我们按站点每个PHP请求占用内存25M，这样max_children = 10G/25M = 409。所以，这个值可以根据情况算出来<br><strong>原因：</strong>由于fpm允许并发的请求数目比较低，而大明与认证又搭在同一台机器。导致并发数目超出负荷导致。<br><strong>其他：</strong>start_servers 是服务器启动时的最大子进程数<br>min_spare_servers 闲时，最小子进程数<br>max_spare_servers 闲时，最大子进程数<br>max_requests=500，为了预防第三方组件，有内存泄露的问题，每当请求数目超出500次，就会重启一个fpm，释放内存。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/10/08/fis3阅读笔记/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          fis3阅读笔记
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/08/13/strace的介绍与使用/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">strace的介绍与使用</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="关于OAuth2的登录问题追查" data-title="关于OAuth2的登录问题追查" data-url="http://yoursite.com/2015/08/17/关于OAuth2的登录问题追查/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 Lee
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
