@@ -177,6 +177,82 @@
 
       <div class="body-wrap">
   
+    <article id="post-phpLua拓展" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/06/28/phpLua拓展/" class="article-date">
+  	<time datetime="2016-06-27T16:00:00.000Z" itemprop="datePublished">2016-06-28</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/06/28/phpLua拓展/">phpLua拓展</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ol>
+<li><p>安装readline<br>yum install readline-devel<br>检查是否安装成功<br>ls -l /usr/include/ | grep readline</p>
+</li>
+<li><p>安装lua<br>curl -R -O <a href="http://www.lua.org/ftp/lua-5.2.3.tar.gz" target="_blank" rel="external">http://www.lua.org/ftp/lua-5.2.3.tar.gz</a><br>tar zxf lua-5.2.3.tar.gz<br>cd lua-5.2.3<br><strong>修改安装目录，方便管理</strong><br>vi Makefile<br>修改目录 INSTALL_TOP= /usr/local/lua<br><strong>这一步很关键（就是因为这步，本人重装了无数次）</strong><br>cd src &amp;&amp; vi Makefile<br>在CFLAG一行 添加选项 -fPIC<br><img src="/img/blog/phplua01.png" alt="install"><br>make linux test<br><strong>安装成功（有fplc过程很关键）</strong>：<br><img src="/img/blog/phplua02.png" alt="install"> </p>
+</li>
+<li><p>安装php拓展<br>cd /tmp<br>wget <a href="http://pecl.php.net/get/lua-1.0.0.tgz" target="_blank" rel="external">http://pecl.php.net/get/lua-1.0.0.tgz</a><br>tar -zxvf lua-1.0.0.tgz<br>cd lua-1.0.0.tgz<br>/usr/local/php/bin/phpize<br>./configure  –prefix=/usr/local/phplua  –with-php-config=/usr/local/php/bin/php-config  –with-lua=/usr/local/lua<br>安装成功<br><img src="/img/blog/phplua03.png" alt="install"> </p>
+</li>
+<li><p>配置php拓展<br>vi /usr/local/php/etc/php.ini<br><strong>添加以下内容</strong><br>;phplua<br>extension_dir = /usr/local/php/lib/php/extensions/no-debug-non-zts-20131226/<br>extension = “lua.so”<br><strong>重启fastcgi</strong><br>~/fastcgi_restart<br><strong>查看以下phpinfo，看是否有安装成功</strong><br><img src="/img/blog/phplua04.png" alt="install"> </p>
+</li>
+<li><p>安装过程和问题参考：<br><a href="http://blog.sina.com.cn/s/blog_87b9bbc70100z04v.html" target="_blank" rel="external">http://blog.sina.com.cn/s/blog_87b9bbc70100z04v.html</a><br><a href="http://www.cnblogs.com/Jqxing/p/3480481.html" target="_blank" rel="external">http://www.cnblogs.com/Jqxing/p/3480481.html</a></p>
+</li>
+<li><p>使用<br>官方manual：<a href="http://php.net/manual/zh/class.lua.php" target="_blank" rel="external">http://php.net/manual/zh/class.lua.php</a><br>6.1 把Lua脚本include进来，可以直接执行Lua函数<br><code>test.Lua</code></p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">globalname = <span class="string">"From Lua"</span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">LuaFunc</span><span class="params">(msg)</span></span></div><div class="line">    <span class="built_in">print</span>(globalname , <span class="string">":"</span>, msg);</div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+<p> <code>test.php</code></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$lua = <span class="keyword">new</span> Lua();</div><div class="line">$lua-&gt;include(<span class="string">"/Lua/test.lua"</span>); </div><div class="line"><span class="comment">//使用方法一：</span></div><div class="line">$lua-&gt;call(<span class="string">"LuaFunc"</span>, [<span class="string">"Hello Lua"</span>]);</div><div class="line"><span class="comment">//使用方法二：</span></div><div class="line">$lua-&gt;LuaFunc([<span class="string">"Hello Lua"</span>]);</div></pre></td></tr></table></figure>
+<p> 6.2 解析策划配置表</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//实例化一个Lua</span></div><div class="line">$lua = <span class="keyword">new</span> Lua();</div><div class="line"><span class="comment">//注册国际化函数</span></div><div class="line">$lua-&gt;registerCallback(<span class="string">"NSLocalizedString"</span>,<span class="function"><span class="keyword">function</span><span class="params">($var)</span></span>&#123;</div><div class="line">   <span class="keyword">return</span> $var;</div><div class="line">&#125;);</div><div class="line"><span class="comment">//解析Lua脚本文件</span></div><div class="line">$lua-&gt;include(<span class="string">"data_item.lua"</span>);</div><div class="line">print_r($lua-&gt;data_item);</div></pre></td></tr></table></figure>
+<p> 6.3 解析Lua数据表</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$lua = <span class="keyword">new</span> Lua();</div><div class="line">$php_var = <span class="string">'&#123;name="andy",say="good job!"&#125;'</span>;</div><div class="line"></div><div class="line">$lua-&gt;eval(<span class="string">&lt;&lt;&lt;CODE</span></div><div class="line">   lua_var = <span class="subst">$php_var</span>;</div><div class="line">CODE); </div><div class="line">print_r(<span class="subst">$lua</span>-&gt;lua_var);</div></pre></td></tr></table></figure></li>
+</ol>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PHP/">PHP</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-从零开始构建PHP应用" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
