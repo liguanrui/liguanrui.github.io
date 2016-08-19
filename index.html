@@ -266,12 +266,27 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <blockquote>
-<p>罐头跳槽了，没来得及把工作环境压缩带走，在新公司当然要折腾一番把环境搞回来。给了一台干净得要命的笔记本，真的是从零开始，中途遇到了不少坑，特地用笔记记下来。</p>
-</blockquote>
-<ol>
-<li><p>下载了网上最新版的VMware Workstation12<br> 传送门：<a href="http://sw.bos.baidu.com/sw-search-sp/software/d34ff7ffac8/VMware-workstation_full_12.1.1.6932.exe">http://sw.bos.baidu.com/sw-search-sp/software/d34ff7ffac8/VMware-workstation_full_12.1.1.6932.exe</a></p>
-<p> VMware Workstation 12序列号：<br> 5A02H-AU243-TZJ49-GTC7K-3C61N</p>
+        <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>罐头做了决定，从<code>MC</code>离职了。犹豫和纠结了好些日子之后，接受了<code>37</code>的offer。来了才知道，我是开荒者啊，没有PHP开发人员，也没有PHP相关环境的服务器。所以入职第一天，我要从零开始构建PHP应用。这整一个过程真的好辛苦，以致我第一天上班就工作到23点。不禁让我想起了以前入职<code>MC</code>，第一周和小伙伴编译LFS，编译到凌晨才下班，大冬天在寒夜里追公交的场景……</p>
+<h4 id="知识准备"><a href="#知识准备" class="headerlink" title="知识准备"></a>知识准备</h4><p>为了可以更好理解整个流程，这里提前介绍一些基础知识和软件准备：</p>
+<ul>
+<li>VMware Workstation12<br>虚拟机软件，用来挂载Linux</li>
+<li>CentOS-6.3-x86_64-minimal.iso<br>这里选择发行版是无桌面的CentOS</li>
+<li>SecureCRT<br>支持SSH的终端仿真程序，Windows下登录UNIX或Linux服务器主机的软件。</li>
+<li>SSH<br>为 Secure Shell 的缩写，专为远程登录会话和其他网络服务提供安全性的协议。通过配置公钥/私钥可以登录到linux。</li>
+<li>LNMP（快速安装PHP方案）<br>LNMP = linux + nginx + mysql + php</li>
+</ul>
+<h4 id="基本流程"><a href="#基本流程" class="headerlink" title="基本流程"></a>基本流程</h4><ol>
+<li>安装VMware Workstation12（下面简称VM）</li>
+<li>在VM创建新的虚拟机，挂载CentOS</li>
+<li>配置VM网络模式，让CentOS可以上网</li>
+<li>生成公钥/私钥。配置并使用SecureCRT（下面简称CRT）</li>
+<li>通过CRT安装LNMP</li>
+</ol>
+<h4 id="安装VM"><a href="#安装VM" class="headerlink" title="安装VM"></a>安装VM</h4><ol>
+<li>这里使用的最新的版本 VMware Workstation12，直接使用了百度提供的安装链接下载：</li>
+<li>传送门：<a href="http://sw.bos.baidu.com/sw-search-sp/software/d34ff7ffac8/VMware-workstation_full_12.1.1.6932.exe">http://sw.bos.baidu.com/sw-search-sp/software/d34ff7ffac8/VMware-workstation_full_12.1.1.6932.exe</a></li>
+<li>安装过程，就不絮叨了，就是平常安装window软件的安装流程。</li>
+<li>安装完成之后，需要序列号激活，就去网上找一下注册机或者搜索一下序列号即可解决。<br> 这里提供一个 VMware Workstation 12序列号：<br> 5A02H-AU243-TZJ49-GTC7K-3C61N
       
     </div>
     
@@ -694,69 +709,6 @@
 
 
   
-    <article id="post-每天写代码" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/07/12/每天写代码/" class="article-date">
-  	<time datetime="2015-07-11T16:00:00.000Z" itemprop="datePublished">2015-07-12</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/07/12/每天写代码/">每天写代码</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>翻译一篇来自John Resig的文章，John Resig, jQuery的创始人和技术领袖，目前在Mozilla担任JavaScript工具开发工程师。著有《Pro JavaScript Techniques》（即《精通JavaScript》）等经典JavaScript书籍。</p>
-</blockquote>
-<p>最近, 在我的项目<a href="https://github.com/jeresig">coding side projects</a>上: 我没有取到足够的进展,我希望不需要牺牲我在可汉学院(<a href="https://www.khanacademy.org/">Khan Academy</a>)的工作，我也可以做很多东西。<br>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/翻译/">翻译</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2015/07/12/每天写代码/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
     <article id="post-如何建立你的日志系统" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -805,6 +757,69 @@
       
         <p class="article-more-link">
           <a  href="/2015/07/12/如何建立你的日志系统/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-每天写代码" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/07/12/每天写代码/" class="article-date">
+  	<time datetime="2015-07-11T16:00:00.000Z" itemprop="datePublished">2015-07-12</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/07/12/每天写代码/">每天写代码</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>翻译一篇来自John Resig的文章，John Resig, jQuery的创始人和技术领袖，目前在Mozilla担任JavaScript工具开发工程师。著有《Pro JavaScript Techniques》（即《精通JavaScript》）等经典JavaScript书籍。</p>
+</blockquote>
+<p>最近, 在我的项目<a href="https://github.com/jeresig">coding side projects</a>上: 我没有取到足够的进展,我希望不需要牺牲我在可汉学院(<a href="https://www.khanacademy.org/">Khan Academy</a>)的工作，我也可以做很多东西。<br>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/翻译/">翻译</a></li></ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/2015/07/12/每天写代码/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>

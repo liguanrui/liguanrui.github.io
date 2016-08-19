@@ -6,18 +6,14 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>从零开始构建PHP应用 | Shark’s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="罐头跳槽了，没来得及把工作环境压缩带走，在新公司当然要折腾一番把环境搞回来。给了一台干净得要命的笔记本，真的是从零开始，中途遇到了不少坑，特地用笔记记下来。
-
-
-下载了网上最新版的VMware Workstation12 传送门：http://sw.bos.baidu.com/sw-search-sp/software/d34ff7ffac8/VMware-workstation_full_12">
+  <meta name="description" content="前言罐头做了决定，从MC离职了。犹豫和纠结了好些日子之后，接受了37的offer。来了才知道，我是开荒者啊，没有PHP开发人员，也没有PHP相关环境的服务器。所以入职第一天，我要从零开始构建PHP应用。这整一个过程真的好辛苦，以致我第一天上班就工作到23点。不禁让我想起了以前入职MC，第一周和小伙伴编译LFS，编译到凌晨才下班，大冬天在寒夜里追公交的场景……
+知识准备为了可以更好理解整个流程，这里">
 <meta property="og:type" content="article">
 <meta property="og:title" content="从零开始构建PHP应用">
 <meta property="og:url" content="http://yoursite.com/2016/06/02/从零开始构建PHP应用/index.html">
 <meta property="og:site_name" content="Shark’s blog">
-<meta property="og:description" content="罐头跳槽了，没来得及把工作环境压缩带走，在新公司当然要折腾一番把环境搞回来。给了一台干净得要命的笔记本，真的是从零开始，中途遇到了不少坑，特地用笔记记下来。
-
-
-下载了网上最新版的VMware Workstation12 传送门：http://sw.bos.baidu.com/sw-search-sp/software/d34ff7ffac8/VMware-workstation_full_12">
+<meta property="og:description" content="前言罐头做了决定，从MC离职了。犹豫和纠结了好些日子之后，接受了37的offer。来了才知道，我是开荒者啊，没有PHP开发人员，也没有PHP相关环境的服务器。所以入职第一天，我要从零开始构建PHP应用。这整一个过程真的好辛苦，以致我第一天上班就工作到23点。不禁让我想起了以前入职MC，第一周和小伙伴编译LFS，编译到凌晨才下班，大冬天在寒夜里追公交的场景……
+知识准备为了可以更好理解整个流程，这里">
 <meta property="og:image" content="http://yoursite.com/img/blog/install_php01.png">
 <meta property="og:image" content="http://yoursite.com/img/blog/install_php02.png">
 <meta property="og:image" content="http://yoursite.com/img/blog/install_php03.png">
@@ -26,13 +22,11 @@
 <meta property="og:image" content="http://yoursite.com/img/blog/install_php06.png">
 <meta property="og:image" content="http://yoursite.com/img/blog/install_php07.png">
 <meta property="og:image" content="http://yoursite.com/img/blog/install_php08.png">
-<meta property="og:updated_time" content="2016-07-04T08:56:14.550Z">
+<meta property="og:updated_time" content="2016-08-19T09:22:14.889Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从零开始构建PHP应用">
-<meta name="twitter:description" content="罐头跳槽了，没来得及把工作环境压缩带走，在新公司当然要折腾一番把环境搞回来。给了一台干净得要命的笔记本，真的是从零开始，中途遇到了不少坑，特地用笔记记下来。
-
-
-下载了网上最新版的VMware Workstation12 传送门：http://sw.bos.baidu.com/sw-search-sp/software/d34ff7ffac8/VMware-workstation_full_12">
+<meta name="twitter:description" content="前言罐头做了决定，从MC离职了。犹豫和纠结了好些日子之后，接受了37的offer。来了才知道，我是开荒者啊，没有PHP开发人员，也没有PHP相关环境的服务器。所以入职第一天，我要从零开始构建PHP应用。这整一个过程真的好辛苦，以致我第一天上班就工作到23点。不禁让我想起了以前入职MC，第一周和小伙伴编译LFS，编译到凌晨才下班，大冬天在寒夜里追公交的场景……
+知识准备为了可以更好理解整个流程，这里">
 <meta name="twitter:image" content="http://yoursite.com/img/blog/install_php01.png">
   
     <link rel="alternative" href="/atom.xml" title="Shark’s blog" type="application/atom+xml">
@@ -231,38 +225,126 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <blockquote>
-<p>罐头跳槽了，没来得及把工作环境压缩带走，在新公司当然要折腾一番把环境搞回来。给了一台干净得要命的笔记本，真的是从零开始，中途遇到了不少坑，特地用笔记记下来。</p>
-</blockquote>
-<ol>
-<li><p>下载了网上最新版的VMware Workstation12<br> 传送门：<a href="http://sw.bos.baidu.com/sw-search-sp/software/d34ff7ffac8/VMware-workstation_full_12.1.1.6932.exe" target="_blank" rel="external">http://sw.bos.baidu.com/sw-search-sp/software/d34ff7ffac8/VMware-workstation_full_12.1.1.6932.exe</a></p>
-<p> VMware Workstation 12序列号：<br> 5A02H-AU243-TZJ49-GTC7K-3C61N</p>
-<a id="more"></a>
-</li>
-<li><p>接收一个君哥给给镜像CentOS-6.3-x86_64-minimal.iso<br> 包颇大（QQ接收都耗了30分钟），就不贴上来了，<br> 可到官网下载 <a href="https://www.centos.org/" target="_blank" rel="external">https://www.centos.org/</a></p>
-</li>
-<li><p>安装centOs<br> 创建新的虚拟机-&gt;自定义-&gt;Workstation 12.0-&gt;创建的虚拟机将包含一个空白硬盘-&gt;linux centos 64-&gt;虚拟机命名和位置-&gt;自定义硬件-&gt;建立虚拟机之后再选择ISO路径，然后开始安装。<br> 系统盘成功引导后，出现下面的界面<br> <img src="/img/blog/install_php01.png" alt="vm"></p>
-<p> 3.1 选择Install or upgrade an existing system 安装或升级现有的系统<br> 3.2 出现是否对CD媒体进行测试的提问，这里选择“Skip”跳过测试。<br> 3.3 选择语言 中文（简体）、美国英语式<br> 3.4 键盘模式，默认即可<br> 3.5 是，丢弃所有数据<br> 3.6 时区选择，取消“系统时钟使用UTC时间”前面的勾<br> 3.7 设置root密码<br> 3.8 选择最后一项，自定义分区<br>假如硬盘总共5G<br>系统文件类型：swap  大小（M）：1024<br>挂载点：/  文件系统类型：ext4  选中“使用全部可用空间”<br>点格式化，将修改写入磁盘<br> 3.9 进入安装，安装完毕请重启<br> 图文传送门：<a href="http://www.dedecms.com/knowledge/servers/linux-bsd/2012/0819/8398.html" target="_blank" rel="external">http://www.dedecms.com/knowledge/servers/linux-bsd/2012/0819/8398.html</a></p>
-</li>
-<li><p>解决网络问题<br> 4.1 使用NAT 模式（N）：用于共享主机的IP地址<br> 4.2 “编辑”-“虚拟网络编辑器”选中VMnet8，点选NAT（与虚拟机共享主机IP地址），把DHCP勾上（那两个框都勾上）。<br> 4.3 开启宿主机（windows7）中的VMware DHCP Service 和VMware NAT Service服务。<br> 4.4 手工配置ip，直接编辑 vi /etc/sysconfig/network-scripts/ifcfg-eth0<br>ifcfg-eth0 文件内容如下：<br><img src="/img/blog/install_php02.png" alt="net"><br>只需要按实际情况修改 DEVICE HWADDR NETMASK IPADDR 这几项即可<br>ipaddr可以通过寄主机获取，NAT使用的 VMware Network Adapter VMnet8 的网卡<br><img src="/img/blog/install_php03.png" alt="ip"><br>然后service network restart<br>再ping 下试试 是不是通了呢。<br> 4.5 在良明同学的帮助下，配置在同一局域网网内可访问<br>先把虚拟机关闭了 &gt; 编辑 &gt; 虚拟网络编辑器<br><img src="/img/blog/install_php04.png" alt="ip"><br>win10貌似要点击以下按钮，获得管理员权限<br><img src="/img/blog/install_php05.png" alt="ip"><br>选择VMnet8（NAT模式）-&gt;点击NAT设置<br><img src="/img/blog/install_php06.png" alt="ip"><br>配置一个端口转发（没有点击添加，已有可以点击属性）<br><img src="/img/blog/install_php07.png" alt="ip"><br>主要配置 [主机端口] [虚拟机端口] [虚拟机IP地址]</p>
+        <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>罐头做了决定，从<code>MC</code>离职了。犹豫和纠结了好些日子之后，接受了<code>37</code>的offer。来了才知道，我是开荒者啊，没有PHP开发人员，也没有PHP相关环境的服务器。所以入职第一天，我要从零开始构建PHP应用。这整一个过程真的好辛苦，以致我第一天上班就工作到23点。不禁让我想起了以前入职<code>MC</code>，第一周和小伙伴编译LFS，编译到凌晨才下班，大冬天在寒夜里追公交的场景……</p>
+<h4 id="知识准备"><a href="#知识准备" class="headerlink" title="知识准备"></a>知识准备</h4><p>为了可以更好理解整个流程，这里提前介绍一些基础知识和软件准备：</p>
+<ul>
+<li>VMware Workstation12<br>虚拟机软件，用来挂载Linux</li>
+<li>CentOS-6.3-x86_64-minimal.iso<br>这里选择发行版是无桌面的CentOS</li>
+<li>SecureCRT<br>支持SSH的终端仿真程序，Windows下登录UNIX或Linux服务器主机的软件。</li>
+<li>SSH<br>为 Secure Shell 的缩写，专为远程登录会话和其他网络服务提供安全性的协议。通过配置公钥/私钥可以登录到linux。</li>
+<li>LNMP（快速安装PHP方案）<br>LNMP = linux + nginx + mysql + php</li>
+</ul>
+<h4 id="基本流程"><a href="#基本流程" class="headerlink" title="基本流程"></a>基本流程</h4><ol>
+<li>安装VMware Workstation12（下面简称VM）</li>
+<li>在VM创建新的虚拟机，挂载CentOS</li>
+<li>配置VM网络模式，让CentOS可以上网</li>
+<li>生成公钥/私钥。配置并使用SecureCRT（下面简称CRT）</li>
+<li>通过CRT安装LNMP</li>
+</ol>
+<h4 id="安装VM"><a href="#安装VM" class="headerlink" title="安装VM"></a>安装VM</h4><ol>
+<li>这里使用的最新的版本 VMware Workstation12，直接使用了百度提供的安装链接下载：</li>
+<li>传送门：<a href="http://sw.bos.baidu.com/sw-search-sp/software/d34ff7ffac8/VMware-workstation_full_12.1.1.6932.exe" target="_blank" rel="external">http://sw.bos.baidu.com/sw-search-sp/software/d34ff7ffac8/VMware-workstation_full_12.1.1.6932.exe</a></li>
+<li>安装过程，就不絮叨了，就是平常安装window软件的安装流程。</li>
+<li>安装完成之后，需要序列号激活，就去网上找一下注册机或者搜索一下序列号即可解决。<br> 这里提供一个 VMware Workstation 12序列号：<br> 5A02H-AU243-TZJ49-GTC7K-3C61N<a id="more"></a>
 </li>
 </ol>
+<h4 id="安装CentOS"><a href="#安装CentOS" class="headerlink" title="安装CentOS"></a>安装CentOS</h4><ol>
+<li>前面说了CentOS是linux的一个发行版，如果对其他的发行版有兴趣的同学可以私聊。</li>
+<li>可以到官网下载一个镜像包，我这里的<code>组长-君哥</code>给了我一个，这是我唯一感到安慰的时刻了。</li>
+<li>官网地址 <a href="https://www.centos.org/" target="_blank" rel="external">https://www.centos.org/</a> ，搜索CentOS-6.3-x86_64-minimal.iso</li>
+<li>这里细说一下如何安装CentOS<ul>
+<li>创建新的虚拟机</li>
+<li>自定义</li>
+<li>Workstation 12.0</li>
+<li>创建的虚拟机将包含一个空白硬盘</li>
+<li>linux centos 64</li>
+<li>虚拟机命名和位置</li>
+<li>自定义硬件（主要注意一下内存大小和网络，不懂的同学可以使用默认推荐设置）</li>
+<li>建立虚拟机之后再选择ISO路径，然后开始安装。</li>
+<li>系统盘成功引导后，出现下面的界面（到这里算成功一半了，继续加油）<br><img src="/img/blog/install_php01.png" alt="vm"></li>
+<li>选择Install or upgrade an existing system 安装或升级现有的系统</li>
+<li>出现是否对CD媒体进行测试的提问，这里选择“Skip”跳过测试。</li>
+<li>选择语言 中文（简体）、美国英语式</li>
+<li>键盘模式，默认即可</li>
+<li>是，丢弃所有数据</li>
+<li>时区选择，取消“系统时钟使用UTC时间”前面的勾</li>
+<li>设置root密码</li>
+<li>选择最后一项，自定义分区。这里说一下如何分区<br>假如硬盘总共5G<br>系统文件类型：swap  大小（M）：1024<br>挂载点：/  文件系统类型：ext4  选中“使用全部可用空间”<br>点格式化，将修改写入磁盘</li>
+<li>进入安装，安装完毕请重启（到这里算完成）</li>
+</ul>
+</li>
+<li>我这里没有截太多的图，图文参考传送门：<a href="http://www.dedecms.com/knowledge/servers/linux-bsd/2012/0819/8398.html" target="_blank" rel="external">http://www.dedecms.com/knowledge/servers/linux-bsd/2012/0819/8398.html</a></li>
+</ol>
+<h4 id="VM的网络配置"><a href="#VM的网络配置" class="headerlink" title="VM的网络配置"></a>VM的网络配置</h4><ol>
+<li><p>准备<br>VMWare提供了三种工作模式，它们是<strong>bridged(桥接模式)</strong>、<strong>NAT(网络地址转换模式)</strong>和<strong>host-only(主机模式）</strong>。以后有空再给大家详细分析这三种模式的差异。我们这使用NAT模式，下面简单介绍一下NAT模式。<br>使用<strong>NAT模式</strong>，就是让虚拟系统借助NAT(网络地址转换)功能，通过宿主机器所在的网络来访问公网。也就是说，使用<strong>NAT模式</strong>可以实现在虚拟系统里访问互联网。<strong>NAT模式</strong>下的虚拟系统的TCP/IP配置信息是由VMnet8(NAT)虚拟网络的DHCP服务器提供的，无法进行手工修改，因此虚拟系统也就无法和本局域网中的其他真实主机进行通讯。采用<strong>NAT模式</strong>最大的优势是虚拟系统接入互联网非常简单，你不需要进行任何其他的配置，只需要宿主机器能访问互联网即可。</p>
+</li>
+<li><p>下面说一下配置流程：</p>
+<ul>
+<li>右击选择已创建好的虚拟机，选择设置，弹窗之后选择网络设配器</li>
+<li>在窗口右侧选择<code>使用NAT 模式（N）：用于共享主机的IP地址</code></li>
+<li>“编辑”-“虚拟网络编辑器”选中VMnet8，点选NAT（与虚拟机共享主机IP地址），把DHCP勾上（那两个框都勾上）。</li>
+<li>开启宿主机（windows10）中的VMware DHCP Service 和VMware NAT Service服务。</li>
+<li>手工配置ip，直接编辑 vi /etc/sysconfig/network-scripts/ifcfg-eth0<br>ifcfg-eth0 文件内容如下：<br><img src="/img/blog/install_php02.png" alt="net"><br>只需要按实际情况修改 DEVICE HWADDR NETMASK IPADDR 这几项即可<br>ipaddr可以通过寄主机获取，NAT使用的 VMware Network Adapter VMnet8 的网卡<br><img src="/img/blog/install_php03.png" alt="ip"><br>然后service network restart<br>再ping 下试试 是不是通了呢。 </li>
+</ul>
+</li>
+<li><p>配置把虚拟机的端口映射成宿主机端口，那么就可以在同一局域网网内可访问了。</p>
+<ul>
+<li>先把虚拟机关闭了 &gt; 编辑 &gt; 虚拟网络编辑器<br><img src="/img/blog/install_php04.png" alt="ip"></li>
+<li>win10貌似要点击以下按钮，获得管理员权限<br><img src="/img/blog/install_php05.png" alt="ip"></li>
+<li>选择VMnet8（NAT模式）-&gt;点击NAT设置<br><img src="/img/blog/install_php06.png" alt="ip"></li>
+<li>配置一个端口转发（没有点击添加，已有可以点击属性）<br><img src="/img/blog/install_php07.png" alt="ip"></li>
+<li>主要配置 [主机端口] [虚拟机端口] [虚拟机IP地址]</li>
+</ul>
+</li>
+</ol>
+<h4 id="配置并使用CRT"><a href="#配置并使用CRT" class="headerlink" title="配置并使用CRT"></a>配置并使用CRT</h4><ol>
+<li>准备<br>能使用上CRT的前提，是网络互通，依赖于上一步的配置。除此之外我们还需要：<ul>
+<li>在CentOS安装<code>SSH</code>服务，并启动它</li>
+<li>ssh-keygen生产SSH 公钥（装个git，在gitbash下使用，或者用svn也可以）</li>
+<li>最后当然就是安装好CRT（也有非安装版本）</li>
+</ul>
+</li>
+<li>安装SSH，我们直接使用yum安装吧，不需理会依赖问题。<ul>
+<li>yum install ssh</li>
+<li>安装成功，启动SSH：<br>service sshd start</li>
+<li>设置开机运行：<br>chkconfig sshd on<br>注：一般默认CentOS已经安装了OpenSSH，即使你是最小化安装也是如此。</li>
+<li>修改vi /etc/ssh/sshd_config<br>Port 22 指定SSH连接的端口号，安全方面不建议使用默认22端口（个人习惯是61618）</li>
+<li>修改vi /root/.ssh/authrized.keys<br>把SSH公钥id_rsa.pub输入到该文件最后</li>
+<li>CentOS防火墙的关闭，关闭其服务即可：<br>查看CentOS防火墙信息：/etc/init.d/iptables status<br>关闭CentOS防火墙服务：/etc/init.d/iptables stop</li>
+<li>尝试看看能不能使用CRT连上？<br>成功的话就可以愉快地安装LNMP了。</li>
+</ul>
+</li>
+</ol>
+<h4 id="安装LNMP"><a href="#安装LNMP" class="headerlink" title="安装LNMP"></a>安装LNMP</h4><ol>
+<li>准备<br>我新装的CentOS连Wegt都没有啊，所以我们需要<ul>
+<li>yum -y install wget</li>
+<li>下载一个LNMP1.3包，wget <a href="https://api.sinas3.com/v1/SAE_lnmp/soft/lnmp1.3-full.tar.gz" target="_blank" rel="external">https://api.sinas3.com/v1/SAE_lnmp/soft/lnmp1.3-full.tar.gz</a> –no-check-certificate<br>（包也是颇大的，400多M，下载需要耗时30min左右）</li>
+</ul>
+</li>
+<li>开始安装<ul>
+<li>解压进入安装<br>tar zxf lnmp1.3-full.tar.gz &amp;&amp; cd lnmp1.3-full &amp;&amp; ./install.sh lnmp</li>
+<li>按要求选择安装<br>输入数据库密码-&gt;选择mysql版本（MySQL 5.5.48）-&gt;选择PHP版本（PHP 5.6.22）-&gt;选择缓存工具（Don’t install Memory Allocator.）我们暂时不安装缓存工具-&gt;回车开始安装<br>安装时间可能会几十分钟到几个小时不等，主要是机器的配置网速等原因会造成影响。（请耐心等候，本人装了2个小时）</li>
+<li>安装完成<br>如果显示Nginx: OK，MySQL: OK，PHP: OK<br><img src="/img/blog/install_php08.png" alt="ok"><br>并且Nginx、MySQL、PHP都是running，80和3306端口都存在，并提示Install lnmp V1.3 completed! enjoy it.的话，说明已经安装成功。</li>
+</ul>
+</li>
+</ol>
+<h4 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h4><p>基本上按照以上安装步骤，不会有太大问题，都是傻瓜式安装。新安装的CentOS可能会确比较多的软件，这里建议使用yum安装一下。下面再补充一下关于Linux的一些常用配置。以便日后需要。</p>
 <ol>
-<li><p>安装SSH，使用上CRT<br> 5.1 前话（装个git，在gitbash下使用ssh-keygen生产SSH 公钥，或者用svn也可以）<br> 5.2 安装SSH：<br>yum install ssh<br>启动SSH：<br>service sshd start<br>设置开机运行：<br>chkconfig sshd on<br>一般默认CentOS已经安装了OpenSSH，即使你是最小化安装也是如此。<br> 5.3 修改vi /etc/ssh/sshd_config<br>Port 22 指定SSH连接的端口号，安全方面不建议使用默认22端口（个人习惯是61618）<br> 5.4 修改vi /root/.ssh/authrized.keys<br>把SSH公钥id_rsa.pub输入进入<br> 5.5  CentOS防火墙的关闭，关闭其服务即可：<br>查看CentOS防火墙信息：/etc/init.d/iptables status<br>关闭CentOS防火墙服务：/etc/init.d/iptables stop</p>
+<li><p>把一些常用的脚本放置root（主要包含php启动、nginx重启等）<br>chmod +x * 增加一下执行权限（这样就可以愉快的使用了）</p>
 </li>
-<li><p>安装lnmp<br> 6.1 前话（装个wegt，yum -y install wget）<br> 6.2 下载一个国内LNMP 1.3稳定版<br>wget <a href="https://api.sinas3.com/v1/SAE_lnmp/soft/lnmp1.3-full.tar.gz" target="_blank" rel="external">https://api.sinas3.com/v1/SAE_lnmp/soft/lnmp1.3-full.tar.gz</a> –no-check-certificate<br>（包也是颇大的，400多M，下载需要耗时30min左右）<br> 6.3 解压进入安装<br>tar zxf lnmp1.3-full.tar.gz &amp;&amp; cd lnmp1.3-full &amp;&amp; ./install.sh lnmp<br> 6.4 安装流程<br>输入数据库密码-&gt;选择mysql版本（MySQL 5.5.48）-&gt;选择PHP版本（PHP 5.6.22）-&gt;选择缓存工具（Don’t install Memory Allocator.）-&gt;回车开始安装<br>安装时间可能会几十分钟到几个小时不等，主要是机器的配置网速等原因会造成影响。（请耐心等候，本人装了2个小时）<br> 6.5 安装完成<br>如果显示Nginx: OK，MySQL: OK，PHP: OK<br><img src="/img/blog/install_php08.png" alt="ok"><br>并且Nginx、MySQL、PHP都是running，80和3306端口都存在，并提示Install lnmp V1.3 completed! enjoy it.的话，说明已经安装成功。</p>
+<li><p>PHP配置<br>PHP配置文件：/usr/local/php/etc/php.ini<br>我们要开启php的错误日志<br>display_errors = On<br>html_errors = On<br>error_log = /data/logs/php_errors.log（日志目录按自己习惯）<br>设置完毕之后，重启一下PHP令其生效（~/fastcgi_restart ）<br>php-fpm配置文件：/usr/local/php/etc/php-fpm.conf<br>listen = /tmp/php-cgi.sock</p>
 </li>
-<li><p>修改一些常用配置<br>（前言：安装一下vim可以显示代码高亮，yum -y install vim<em>）<br>把一些常用的脚本放置root（主要包含php启动、nginx重启等）<br>chmod +x </em> 增加一下执行权限（这样就可以愉快的使用了）</p>
-<p> 7.1 PHP配置<br>PHP配置文件：/usr/local/php/etc/php.ini<br>我们要开启php的错误日志<br>display_errors = On<br>html_errors = On<br>error_log = /data/logs/php_errors.log（日志目录按自己习惯）<br>设置完毕之后，重启一下PHP令其生效（~/fastcgi_restart ）<br>php-fpm配置文件：/usr/local/php/etc/php-fpm.conf<br>listen = /tmp/php-cgi.sock<br>（这个sock要注意一下）</p>
-<p> 7.2 Nginx配置<br>Nginx主配置(默认虚拟主机)文件：/usr/local/nginx/conf/nginx.conf<br>添加的虚拟主机配置文件：/usr/local/nginx/conf/vhost/域名.conf</p>
-<p> 7.3 Mysql配置<br>MySQL配置文件：/etc/my.cnf</p>
-<p> 7.4 设置 命令别名~/.bashrc 和 开机脚本/etc/rc.local</p>
+<li><p>Nginx配置<br>Nginx主配置(默认虚拟主机)文件：/usr/local/nginx/conf/nginx.conf<br>添加的虚拟主机配置文件：/usr/local/nginx/conf/vhost/域名.conf</p>
+</li>
+<li><p>Mysql配置<br>MySQL配置文件：/etc/my.cnf</p>
+</li>
+<li><p>设置 命令别名~/.bashrc 和 开机脚本/etc/rc.local</p>
 </li>
 </ol>
 <pre><code>[localhost]#  vi ~/.bashrc
---------- 增加两句（个人习惯把mysql密码设置到/data/save/mysql_root,避免忘记）----
+--------- 增加两句（个人习惯把mysql密码设置到某个目录，比如/data/pw/mysql_root,避免忘记）----
 alias vi=&apos;vim&apos;
-alias con_mysql=&apos;mysql -uroot -p`cat /data/save/mysql`&apos;
+alias con_mysql=&apos;mysql -uroot -p`cat /data/pw/mysql_root`&apos;
 [localhost]vi /etc/rc.local
 ---------------------------------------------------------------------------------------------
 [localhost]# source ~/.bashrc
