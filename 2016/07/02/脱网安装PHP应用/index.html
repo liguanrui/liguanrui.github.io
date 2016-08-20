@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Shark’s blog">
 <meta property="og:description" content="前言自从上次那个从零开始构建PHP应用，已经过去一个月了，admin系统开发还算顺利。初版几乎可以投入测试和使用了，那么就面临着要部署到公司服务器的问题。一了解才发现，原来他们使用的服务器都是脱网环境的，而且没有PHP环境。准备开始新的一轮折腾，所以今天的主题是如何脱网安装PHP应用。
 在脱网的情况，我们就不能用yum安装。要么使用rpm进行源码安装，要么使用make进行编译安装。我们下面会视情况">
-<meta property="og:updated_time" content="2016-08-20T15:21:33.714Z">
+<meta property="og:updated_time" content="2016-08-20T15:24:04.558Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="脱网安装PHP应用">
 <meta name="twitter:description" content="前言自从上次那个从零开始构建PHP应用，已经过去一个月了，admin系统开发还算顺利。初版几乎可以投入测试和使用了，那么就面临着要部署到公司服务器的问题。一了解才发现，原来他们使用的服务器都是脱网环境的，而且没有PHP环境。准备开始新的一轮折腾，所以今天的主题是如何脱网安装PHP应用。
@@ -217,7 +217,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>自从上次那个<code>从零开始构建PHP应用</code>，已经过去一个月了，<code>admin系统</code>开发还算顺利。初版几乎可以投入测试和使用了，那么就面临着要部署到公司服务器的问题。一了解才发现，原来他们使用的服务器都是脱网环境的，而且没有PHP环境。准备开始新的一轮折腾，所以今天的主题是如何脱网安装PHP应用。</p>
-<p>在脱网的情况，我们就不能用<code>yum</code>安装。要么使用<code>rpm</code>进行源码安装，要么使用<code>make</code>进行编译安装。我们下面会视情况而定，也会细说这两种安装的差异。除了安装方式的改变之外，我们还要解决各种依赖问题。</p>
+<p>在脱网的情况，我们就不能用<code>yum</code>安装。要么使用<code>rpm</code>进行源码安装，要么使用<code>make</code>进行编译安装。我们下面会视情况而定，也会细说这两种安装的差异。除了安装方式的改变之外，我们还要解决各种依赖问题。<br><a id="more"></a></p>
 <h4 id="准备知识"><a href="#准备知识" class="headerlink" title="准备知识"></a>准备知识</h4><h5 id="RPM"><a href="#RPM" class="headerlink" title="RPM"></a>RPM</h5><p>RPM 全名是『 RedHat Package Manager 』简称则为 RPM。RPM 是以一种数据库记录的方式来将你所需要的套件安装到你的 Linux 主机的一套管理程序。他最大的特点就是将您要安装的套件先编译过( 如果需要的话 )并且打包好了，透过包装好的套件里头预设的数据库记录， 记录这个套件要安装的时候必须要的相依属性模块( 就是你的 Linux 主机需要先存在的几个必须的套件 )，当安装在你的 Linux 主机时， RPM 会先依照套件里头的纪录数据查询 Linux 主机的相依属性套件是否满足， 若满足则予以安装，若不满足则不予安装。那么安装的时候就将该套件的信息整个写入 RPM 的数据库中，以便未来的查询、验证与反安装！</p>
 <p>优点：</p>
 <ul>
