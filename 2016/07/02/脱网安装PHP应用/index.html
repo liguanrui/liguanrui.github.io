@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Shark’s blog">
 <meta property="og:description" content="前言自从上次那个从零开始构建PHP应用，已经过去一个月了，admin系统开发还算顺利。初版几乎可以投入测试和使用了，那么就面临着要部署到公司服务器的问题。一了解才发现，原来他们使用的服务器都是脱网环境的，而且没有PHP环境。准备开始新的一轮折腾，所以今天的主题是如何脱网安装PHP应用。
 在脱网的情况，我们就不能用yum安装。要么使用rpm进行源码安装，要么使用make进行编译安装。我们下面会视情况">
-<meta property="og:updated_time" content="2016-08-20T15:24:04.558Z">
+<meta property="og:updated_time" content="2016-08-20T15:26:33.976Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="脱网安装PHP应用">
 <meta name="twitter:description" content="前言自从上次那个从零开始构建PHP应用，已经过去一个月了，admin系统开发还算顺利。初版几乎可以投入测试和使用了，那么就面临着要部署到公司服务器的问题。一了解才发现，原来他们使用的服务器都是脱网环境的，而且没有PHP环境。准备开始新的一轮折腾，所以今天的主题是如何脱网安装PHP应用。
@@ -254,7 +254,7 @@
 <li>make 编译</li>
 <li>make install 安装</li>
 </ul>
-<h5 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h5><p>提供两个比较靠谱的linux软件包下载地址<br><a href="http://rpmfind.net/linux/rpm2html/search.php" target="_blank" rel="external">http://rpmfind.net/linux/rpm2html/search.php</a><br><a href="https://sourceforge.net" target="_blank" rel="external">https://sourceforge.net</a></p>
+<h5 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h5><p>提供两个比较靠谱的linux软件包下载地址<br><a href="http://rpmfind.net" target="_blank" rel="external">http://rpmfind.net</a><br><a href="https://sourceforge.net" target="_blank" rel="external">https://sourceforge.net</a></p>
 <h4 id="安装流程"><a href="#安装流程" class="headerlink" title="安装流程"></a>安装流程</h4><ul>
 <li>PHP使用<code>make</code>安装方式进行安装。</li>
 <li>到PHP官网下载PHP安装包，或者到之前<code>lnmp</code>的src目录找一个。（要好好利用<code>lnmp</code>的src目录下的安装包）</li>
