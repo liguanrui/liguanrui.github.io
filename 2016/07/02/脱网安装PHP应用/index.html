@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>脱网安装PHP应用 | Shark’s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前言自从上次那个从零开始构建PHP应用，已经过去一个月了，admin系统开发还算顺利。初版几乎可以投入测试和使用了，那么就面临着要部署到公司服务器的问题。一了解才发现，原来他们使用的服务器都是脱网环境的，而且没有PHP环境。准备开始新的一轮折腾，所以今天的主题是如何脱网安装PHP应用。
+在脱网的情况，我们就不能用yum安装。要么使用rpm进行源码安装，要么使用make进行编译安装。我们下面会视情况">
+<meta property="og:type" content="article">
+<meta property="og:title" content="脱网安装PHP应用">
+<meta property="og:url" content="http://yoursite.com/2016/07/02/脱网安装PHP应用/index.html">
+<meta property="og:site_name" content="Shark’s blog">
+<meta property="og:description" content="前言自从上次那个从零开始构建PHP应用，已经过去一个月了，admin系统开发还算顺利。初版几乎可以投入测试和使用了，那么就面临着要部署到公司服务器的问题。一了解才发现，原来他们使用的服务器都是脱网环境的，而且没有PHP环境。准备开始新的一轮折腾，所以今天的主题是如何脱网安装PHP应用。
+在脱网的情况，我们就不能用yum安装。要么使用rpm进行源码安装，要么使用make进行编译安装。我们下面会视情况">
+<meta property="og:updated_time" content="2016-08-20T15:21:33.714Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="脱网安装PHP应用">
+<meta name="twitter:description" content="前言自从上次那个从零开始构建PHP应用，已经过去一个月了，admin系统开发还算顺利。初版几乎可以投入测试和使用了，那么就面临着要部署到公司服务器的问题。一了解才发现，原来他们使用的服务器都是脱网环境的，而且没有PHP环境。准备开始新的一轮折腾，所以今天的主题是如何脱网安装PHP应用。
+在脱网的情况，我们就不能用yum安装。要么使用rpm进行源码安装，要么使用make进行编译安装。我们下面会视情况">
+  
+    <link rel="alternative" href="/atom.xml" title="Shark’s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/tim.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/img/author.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Lee</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">My study notes</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Menu</li>
+						<li>Tags</li>
+						
+						
+						<li>Über</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/liguanrui" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/u/2013245482" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="#" title="rss">rss</a>
+					        
+								<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/PHP/" style="font-size: 20px;">PHP</a> <a href="/tags/前端/" style="font-size: 15px;">前端</a> <a href="/tags/感悟/" style="font-size: 15px;">感悟</a> <a href="/tags/翻译/" style="font-size: 10px;">翻译</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">周末下午=鱼罐头/午餐肉/炸鸡块+可乐罐/啤酒罐+盒仔饭/艇仔粥/即食面+轻音乐/肥皂剧/热网综+水果糖/甜布丁</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Lee</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/img/author.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Lee</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">My study notes</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/liguanrui" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/u/2013245482" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-脱网安装PHP应用" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/07/02/脱网安装PHP应用/" class="article-date">
+  	<time datetime="2016-07-01T16:00:00.000Z" itemprop="datePublished">2016-07-02</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      脱网安装PHP应用
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PHP/">PHP</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>自从上次那个<code>从零开始构建PHP应用</code>，已经过去一个月了，<code>admin系统</code>开发还算顺利。初版几乎可以投入测试和使用了，那么就面临着要部署到公司服务器的问题。一了解才发现，原来他们使用的服务器都是脱网环境的，而且没有PHP环境。准备开始新的一轮折腾，所以今天的主题是如何脱网安装PHP应用。</p>
+<p>在脱网的情况，我们就不能用<code>yum</code>安装。要么使用<code>rpm</code>进行源码安装，要么使用<code>make</code>进行编译安装。我们下面会视情况而定，也会细说这两种安装的差异。除了安装方式的改变之外，我们还要解决各种依赖问题。</p>
+<h4 id="准备知识"><a href="#准备知识" class="headerlink" title="准备知识"></a>准备知识</h4><h5 id="RPM"><a href="#RPM" class="headerlink" title="RPM"></a>RPM</h5><p>RPM 全名是『 RedHat Package Manager 』简称则为 RPM。RPM 是以一种数据库记录的方式来将你所需要的套件安装到你的 Linux 主机的一套管理程序。他最大的特点就是将您要安装的套件先编译过( 如果需要的话 )并且打包好了，透过包装好的套件里头预设的数据库记录， 记录这个套件要安装的时候必须要的相依属性模块( 就是你的 Linux 主机需要先存在的几个必须的套件 )，当安装在你的 Linux 主机时， RPM 会先依照套件里头的纪录数据查询 Linux 主机的相依属性套件是否满足， 若满足则予以安装，若不满足则不予安装。那么安装的时候就将该套件的信息整个写入 RPM 的数据库中，以便未来的查询、验证与反安装！</p>
+<p>优点：</p>
+<ul>
+<li>由于已经编译完成并且打包完毕，所以安装上很方便( 不需要再重新编译 )。</li>
+<li>由于套件的信息都已经记录在 Linux 主机的数据库上，很方便查询、升级与反安装。</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>安装的环境必须与打包时的环境需求一致或相当；</li>
+<li>需要满足套件的相依属性需求；</li>
+<li>反安装时需要特别小心，最底层的套件不可先移除，否则可能造成整个系统的问题！</li>
+</ul>
+<p>基本使用：</p>
+<ul>
+<li>rpm -qa                    //查询系统中已经安装的软件  </li>
+<li>rpm -ivh rpm文件    //安装（一般需要加–nodeps）</li>
+<li>rpm -Uvh rpm文件   //更新</li>
+<li>rpm -e 套件名称          //删除</li>
+</ul>
+<p>RPM包的命名规则：</p>
+<blockquote>
+<p>以”libcurl-7.19.7-52.el6.x86_64”为例<br><strong>libcurl</strong>：套件名称<br><strong>7.19.7</strong>：版本<br><strong>el6</strong>：软件包发行商版本<br><strong>x86_64</strong>：使用的硬件平台</p>
+</blockquote>
+<ul>
+<li>e16指的是RHEL6.x/CentOS 6.x，如果你的Linux安装是参考之前的博文，那么这里选择e16。</li>
+<li>devel：表示这个包是软件的开发包。</li>
+<li>noarch：说明该包不受平台和硬件限制。</li>
+</ul>
+<h5 id="make"><a href="#make" class="headerlink" title="make"></a>make</h5><p>这里泛指使用GNU的AUTOCONF和AUTOMAKE产生的程序的安装步骤。make工具最主要也是最基本的功能就是通过makefile文件来描述源程序之间的相互关系并自动维护编译工作。而makefile文件需要按照某种语法进行编写，文件中需要说明如何编译各个源文件并连接生成可执行文件，并要求定义源文件之间的依赖关系。</p>
+<p>流程：</p>
+<ul>
+<li>下载软件包，解压进入软件包目录</li>
+<li>./configure 检测你的安装平台的目的特征，可以配置选项，会生成makefile文件</li>
+<li>make 编译</li>
+<li>make install 安装</li>
+</ul>
+<h5 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h5><p>提供两个比较靠谱的linux软件包下载地址<br><a href="http://rpmfind.net/linux/rpm2html/search.php" target="_blank" rel="external">http://rpmfind.net/linux/rpm2html/search.php</a><br><a href="https://sourceforge.net" target="_blank" rel="external">https://sourceforge.net</a></p>
+<h4 id="安装流程"><a href="#安装流程" class="headerlink" title="安装流程"></a>安装流程</h4><ul>
+<li>PHP使用<code>make</code>安装方式进行安装。</li>
+<li>到PHP官网下载PHP安装包，或者到之前<code>lnmp</code>的src目录找一个。（要好好利用<code>lnmp</code>的src目录下的安装包）</li>
+<li>解压进入软件包目录</li>
+<li>./configure ./configure –prefix=<code>$php_root</code> –with-config-file-path=/etc –with-mysql=<code>$mysql_root</code> –with-pdo-mysql=<code>$mysql_root</code>/bin/mysql_config –with-mysqli=<code>$mysql_root</code>/bin/mysql_config –with-iconv-dir=/usr/local –with-freetype-dir –with-jpeg-dir –with-png-dir –enable-gd-native-ttf –enable-zip –with-zlib –with-gd –disable-rpath –enable-bcmath –enable-shmop –enable-sysvsem –with-curl –enable-mbstring –with-mcrypt –disable-ipv6 –enable-static –enable-maintainer-zts –enable-sockets –enable-soap –with-openssl –without-pdo-sqlite –enable-fpm</li>
+<li>make -j 4 &amp;&amp; make install</li>
+<li>进行php-fpm配置</li>
+<li>进行php.ini配置</li>
+</ul>
+<p>你以为这样就轻松装完了？当然如果你系统各种依赖都完整，当然就一次性通过了。但是通常我们都会进行./configure这一步，都是收到不少错误提示，下面把我安装时遇到的问题列举一下。</p>
+<h4 id="遇到问题"><a href="#遇到问题" class="headerlink" title="遇到问题"></a>遇到问题</h4><ol>
+<li><p>error: xml2-config not found<br>yum install libxml2<br>yum install libxml2-devel<br>或者<br>下载libxml2 与 libxml2-devel 的RPM源码包进行安装</p>
+</li>
+<li><p>error: Please reinstall the libcurl distribution<br>yum install curl<br>yum install curl-devel<br>或者<br>下载curl 与 curl-devel 的RPM源码包进行安装</p>
+</li>
+<li><p>error: mcrypt.h not found.<br>centos源不能安装libmcrypt-devel，由于版权的原因没有自带mcrypt的包。<br> 所以只能下载安装包安装了<br> wget <a href="http://softlayer.dl.sourceforge.net/sourceforge/mcrypt/libmcrypt-2.5.8.tar.gz" target="_blank" rel="external">http://softlayer.dl.sourceforge.net/sourceforge/mcrypt/libmcrypt-2.5.8.tar.gz</a> （也可以到lnmp/src下面获取）<br> tar -zxvf libmcrypt-2.5.8.tar.gz<br> cd /usr/local/src/libmcrypt-2.5.8<br> ./configure –prefix=/usr/local<br> make &amp;&amp; make install</p>
+</li>
+<li><p>在寻找各种依赖的过程，发现了前辈总结得比较好的一篇博文，如果你遇到比我还要奇葩的问题，可以参考<br> <a href="http://yanue.net/post-127.html" target="_blank" rel="external">http://yanue.net/post-127.html</a></p>
+</li>
+<li><p>error: Don’t know how to define struct flock on this system, set –enable-opcache=no<br> 基本原因就是找不到mysql的so之类的。<br> cd /etc/ld.so.conf.d<br> vi mysql-x86_64.conf     # 编辑库文件<br> /usr/local/mysql/lib       # 添加该行<br> :wq                                 # 保存退出<br> ldconfig -v                     # 使之生效    </p>
+</li>
+</ol>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/06/28/phpLua拓展/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">phpLua拓展</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="脱网安装PHP应用" data-title="脱网安装PHP应用" data-url="http://yoursite.com/2016/07/02/脱网安装PHP应用/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 Lee
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
