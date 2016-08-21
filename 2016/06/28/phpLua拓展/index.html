@@ -20,7 +20,7 @@
 <meta property="og:image" content="http://yoursite.com/img/blog/phplua02.png">
 <meta property="og:image" content="http://yoursite.com/img/blog/phplua03.png">
 <meta property="og:image" content="http://yoursite.com/img/blog/phplua04.png">
-<meta property="og:updated_time" content="2016-07-05T02:58:10.525Z">
+<meta property="og:updated_time" content="2016-08-21T08:30:15.488Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="phpLua拓展">
 <meta name="twitter:description" content="安装readlineyum install readline-devel检查是否安装成功ls -l /usr/include/ | grep readline
@@ -231,7 +231,7 @@
 <a id="more"></a>
 <p><strong>修改安装目录，方便管理</strong><br>vi Makefile<br>修改目录 INSTALL_TOP= /usr/local/lua<br><strong>这一步很关键（就是因为这步，本人重装了无数次）</strong><br>cd src &amp;&amp; vi Makefile<br>在CFLAG一行 添加选项 -fPIC<br><img src="/img/blog/phplua01.png" alt="install"><br>make linux test<br><strong>安装成功（有fplc过程很关键）</strong>：<br><img src="/img/blog/phplua02.png" alt="install"> </p>
 </li>
-<li><p>安装php拓展<br>cd /tmp<br>wget <a href="http://pecl.php.net/get/lua-1.0.0.tgz" target="_blank" rel="external">http://pecl.php.net/get/lua-1.0.0.tgz</a><br>tar -zxvf lua-1.0.0.tgz<br>cd lua-1.0.0.tgz<br>/usr/local/php/bin/phpize<br>./configure  –prefix=/usr/local/phplua  –with-php-config=/usr/local/php/bin/php-config  –with-lua=/usr/local/lua<br>安装成功<br><img src="/img/blog/phplua03.png" alt="install"> </p>
+<li><p>安装php拓展<br>cd /tmp<br>wget <a href="http://pecl.php.net/get/lua-1.0.0.tgz" target="_blank" rel="external">http://pecl.php.net/get/lua-1.0.0.tgz</a><br>tar -zxvf lua-1.0.0.tgz<br>cd lua-1.0.0.tgz<br>/usr/local/php/bin/phpize<br>./configure  –prefix=/usr/local/phplua  –with-php-config=/usr/local/php/bin/php-config  –with-lua=/usr/local/lua<br>make &amp;&amp; make install<br>安装成功<br><img src="/img/blog/phplua03.png" alt="install"> </p>
 </li>
 <li><p>配置php拓展<br>vi /usr/local/php/etc/php.ini<br><strong>添加以下内容</strong><br>;phplua<br>extension_dir = /usr/local/php/lib/php/extensions/no-debug-non-zts-20131226/<br>extension = “lua.so”<br><strong>重启fastcgi</strong><br>~/fastcgi_restart<br><strong>查看以下phpinfo，看是否有安装成功</strong><br><img src="/img/blog/phplua04.png" alt="install"> </p>
 </li>
