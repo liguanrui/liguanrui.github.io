@@ -22,7 +22,7 @@
 <meta property="og:image" content="http://yoursite.com/img/blog/install_php06.png">
 <meta property="og:image" content="http://yoursite.com/img/blog/install_php07.png">
 <meta property="og:image" content="http://yoursite.com/img/blog/install_php08.png">
-<meta property="og:updated_time" content="2016-08-19T09:29:41.805Z">
+<meta property="og:updated_time" content="2016-08-22T01:49:12.568Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从零开始构建PHP应用">
 <meta name="twitter:description" content="前言罐头做了决定，从MC离职了。犹豫和纠结了好些日子之后，接受了37的offer。来了才知道，我是开荒者啊，没有PHP开发人员，也没有PHP相关环境的服务器。所以入职第一天，我要从零开始构建PHP应用。这整一个过程真的好辛苦，以致我第一天上班就工作到23点。不禁让我想起了以前入职MC，第一周和小伙伴编译LFS，编译到凌晨才下班，大冬天在寒夜里追公交的场景……
@@ -328,7 +328,7 @@
 </ul>
 </li>
 </ol>
-<h4 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h4><p>基本上按照以上安装步骤，不会有太大问题，都是傻瓜式安装。新安装的CentOS可能会确比较多的软件，这里建议使用yum安装一下。下面再补充一下关于Linux的一些常用配置。以便日后需要。</p>
+<h4 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h4><p>基本上按照以上安装步骤，不会有太大问题，都是傻瓜式安装。新安装的CentOS可能会缺比较多的软件，这里建议使用yum安装一下。下面再补充一下关于Linux的一些常用配置。以便日后需要。</p>
 <ol>
 <li><p>把一些常用的脚本放置root（主要包含php启动、nginx重启等）<br>chmod +x * 增加一下执行权限（这样就可以愉快的使用了）</p>
 </li>
@@ -345,7 +345,7 @@
 --------- 增加两句（个人习惯把mysql密码设置到某个目录，比如/data/pw/mysql_root,避免忘记）----
 alias vi=&apos;vim&apos;
 alias con_mysql=&apos;mysql -uroot -p`cat /data/pw/mysql_root`&apos;
-[localhost]vi /etc/rc.local
+[localhost]#vi /etc/rc.local
 ---------------------------------------------------------------------------------------------
 [localhost]# source ~/.bashrc
 
