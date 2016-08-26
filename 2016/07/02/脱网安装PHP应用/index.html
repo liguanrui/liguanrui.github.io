@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Shark’s blog">
 <meta property="og:description" content="前言自从上次那个从零开始构建PHP应用，已经过去一个月了，admin系统开发还算顺利。初版几乎可以投入测试和使用了，那么就面临着要部署到公司服务器的问题。一了解才发现，原来他们使用的服务器都是脱网环境的，而且没有PHP环境。准备开始新的一轮折腾，所以今天的主题是如何脱网安装PHP应用。
 在脱网的情况，我们就不能用yum安装。要么使用rpm进行源码安装，要么使用make进行编译安装。我们下面会视情况">
-<meta property="og:updated_time" content="2016-08-20T15:26:33.976Z">
+<meta property="og:updated_time" content="2016-08-26T07:48:54.746Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="脱网安装PHP应用">
 <meta name="twitter:description" content="前言自从上次那个从零开始构建PHP应用，已经过去一个月了，admin系统开发还算顺利。初版几乎可以投入测试和使用了，那么就面临着要部署到公司服务器的问题。一了解才发现，原来他们使用的服务器都是脱网环境的，而且没有PHP环境。准备开始新的一轮折腾，所以今天的主题是如何脱网安装PHP应用。
@@ -217,7 +217,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>自从上次那个<code>从零开始构建PHP应用</code>，已经过去一个月了，<code>admin系统</code>开发还算顺利。初版几乎可以投入测试和使用了，那么就面临着要部署到公司服务器的问题。一了解才发现，原来他们使用的服务器都是脱网环境的，而且没有PHP环境。准备开始新的一轮折腾，所以今天的主题是如何脱网安装PHP应用。</p>
-<p>在脱网的情况，我们就不能用<code>yum</code>安装。要么使用<code>rpm</code>进行源码安装，要么使用<code>make</code>进行编译安装。我们下面会视情况而定，也会细说这两种安装的差异。除了安装方式的改变之外，我们还要解决各种依赖问题。<br><a id="more"></a></p>
+<p>在脱网的情况，我们就不能用<code>yum</code>安装。要么使用<code>rpm</code>进行源码安装，要么使用<code>make</code>进行编译安装。我们下面会视情况而定。除了安装方式的改变之外，我们还要解决各种依赖问题。<br><a id="more"></a></p>
 <h4 id="准备知识"><a href="#准备知识" class="headerlink" title="准备知识"></a>准备知识</h4><h5 id="RPM"><a href="#RPM" class="headerlink" title="RPM"></a>RPM</h5><p>RPM 全名是『 RedHat Package Manager 』简称则为 RPM。RPM 是以一种数据库记录的方式来将你所需要的套件安装到你的 Linux 主机的一套管理程序。他最大的特点就是将您要安装的套件先编译过( 如果需要的话 )并且打包好了，透过包装好的套件里头预设的数据库记录， 记录这个套件要安装的时候必须要的相依属性模块( 就是你的 Linux 主机需要先存在的几个必须的套件 )，当安装在你的 Linux 主机时， RPM 会先依照套件里头的纪录数据查询 Linux 主机的相依属性套件是否满足， 若满足则予以安装，若不满足则不予安装。那么安装的时候就将该套件的信息整个写入 RPM 的数据库中，以便未来的查询、验证与反安装！</p>
 <p>优点：</p>
 <ul>
@@ -239,7 +239,7 @@
 </ul>
 <p>RPM包的命名规则：</p>
 <blockquote>
-<p>以”libcurl-7.19.7-52.el6.x86_64”为例<br><strong>libcurl</strong>：套件名称<br><strong>7.19.7</strong>：版本<br><strong>el6</strong>：软件包发行商版本<br><strong>x86_64</strong>：使用的硬件平台</p>
+<p>以”libcurl-7.19.7-52.el6.x86_64”为例<br><strong>libcurl</strong>：软件包名称<br><strong>7.19.7</strong>：版本<br><strong>el6</strong>：软件包发行商版本<br><strong>x86_64</strong>：使用的硬件平台</p>
 </blockquote>
 <ul>
 <li>e16指的是RHEL6.x/CentOS 6.x，如果你的Linux安装是参考之前的博文，那么这里选择e16。</li>
@@ -275,6 +275,12 @@
 <li><p>在寻找各种依赖的过程，发现了前辈总结得比较好的一篇博文，如果你遇到比我还要奇葩的问题，可以参考<br> <a href="http://yanue.net/post-127.html" target="_blank" rel="external">http://yanue.net/post-127.html</a></p>
 </li>
 <li><p>error: Don’t know how to define struct flock on this system, set –enable-opcache=no<br> 基本原因就是找不到mysql的so之类的。<br> cd /etc/ld.so.conf.d<br> vi mysql-x86_64.conf     # 编辑库文件<br> /usr/local/mysql/lib       # 添加该行<br> :wq                                 # 保存退出<br> ldconfig -v                     # 使之生效    </p>
+</li>
+<li><p>脱网情况下SSH连接慢<br> 使用ssh -vv 192.168.48.128的方式测试一下慢出现在什么地方。<br> 截取其中一段出来：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">debug1: Authentications that can continue: publickey,gssapi-with-mic,password</div><div class="line">debug1: Next authentication method: gssapi-with-mic</div><div class="line">Address 192.168.48.128 maps to localhost, but this does not map back to ……</div><div class="line"></div><div class="line">debug1: Unspecified GSS failure. Minor code may provide more information</div><div class="line">No credentials cache found</div><div class="line"></div><div class="line">debug1: Unspecified GSS failure. Minor code may provide more information</div><div class="line">No credentials cache found</div><div class="line"></div><div class="line">debug1: Unspecified GSS failure. Minor code may provide more information</div><div class="line">No credentials cache found</div><div class="line"></div><div class="line">debug2: we did not send a packet, disable method</div><div class="line">debug1: Next authentication method: publickey</div></pre></td></tr></table></figure>
+<p> 当机器出现GSS导致慢的问题的时候会看到</p>
+<p> 从以上的输出可以看到耗时最长的就是Unspecified GSS failure的地方，这是因为验证的时候启用的GSSAPIAuthentication验证方式导致的。</p>
+<p> 那我们只要关闭就可以了，这个时候有两个地方是需要设置的，sshd_config里面设置的是服务端，ssh_config里面设置的是客户端的。两台相互连接的机器只要把一方设置为no即可。但是服务端一定要设置sshd_config，客户端设置ssh_config。</p>
 </li>
 </ol>
 
