@@ -12,7 +12,7 @@
 <meta property="og:url" content="http://yoursite.com/2016/08/15/各式网址登录之奇葩集锦/index.html">
 <meta property="og:site_name" content="Shark’s blog">
 <meta property="og:description" content="前言学过编程的孩纸，都知道注册/登录是最基础的功能了。但是却不意味着是最简单的。这里的讨论范围都是基于网页应用的登录功能，由于受Http协议的限制，对于保护用户的账号安全，不同的网站有不同的方法（奇技淫巧）实现。">
-<meta property="og:updated_time" content="2016-08-26T08:18:45.216Z">
+<meta property="og:updated_time" content="2016-09-06T03:56:32.143Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="各式网址登录之奇葩集锦">
 <meta name="twitter:description" content="前言学过编程的孩纸，都知道注册/登录是最基础的功能了。但是却不意味着是最简单的。这里的讨论范围都是基于网页应用的登录功能，由于受Http协议的限制，对于保护用户的账号安全，不同的网站有不同的方法（奇技淫巧）实现。">
@@ -73,7 +73,7 @@
 						<li>Tags</li>
 						
 						
-						<li>About</li>
+						<li>Über</li>
 						
 					</ul>
 				</div>
@@ -217,7 +217,7 @@
 <h3 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h3><ol>
 <li>HTTP<br>基本上所有的网站登录方式都是通过该协议进行的，这是一种请求/响应式的协议。</li>
 <li>Fidder<br>HTTP网络抓包工具，可以清晰地看出每条协议的请求和响应。</li>
-<li>Postman<br>chrome的模拟请求插件，好用到不行。</li>
+<li>Postman<br>chrome的模拟请求插件，由于安全性考虑，默认是不发送cookie，需要配置。</li>
 <li>RSA加密<br>一种比较普遍的非对称加密算法，可以对用户密码进行加密之后在网络协议中传输，以防被黑客截包也难以破解。</li>
 <li>HTTPS<br>是HTTP的安全版，即HTTP下加入SSL层，加密原理也是RSA，提高了明文传输的安全性。</li>
 <li>验证码<br>验证码的历史、奇葩进化史（直指12306），我就不絮叨了。是一种防止机器爆破的手段。</li>
@@ -239,7 +239,7 @@
 <li><p>登录密码加密规则<br> 先来看一组例子：<br> 源：<strong>xxxx2016</strong><br> 加密：base64_encode( csoFaHfY<code>xxx</code>rzE5V<code>x2016</code>qe )<br> 源：<strong>2015cccc</strong><br> 加密：base64_encode( 0hqAjYOg<code>201</code>pqROH<code>5cccc</code>58 )<br> 源：<strong>ccccccccccc2016123000</strong><br> 加密：base64_encode( vmZUFVzJ<code>ccc</code>vTB0C<code>ccccccc2015123000</code>16 )</p>
 <p> 遗憾的是37平台的密码在网络传输的时候，并没有使用RSA非对称加密，加密规则如下：<br> 8位随机字母+前3位密码+5位随机字母+从第4开始截取至最后一位密码+两位随机字母 &gt; base64加密以上结果<br> 加密的详细代码过程<a href="http://ptres.37.com/js/sq/widget/sq.login2015.js?bust=20160815050040VER" target="_blank" rel="external">sq.login2015.js</a>，有兴趣同学可以down来学习。 </p>
 </li>
-<li><p>关键cookie<br> name：**ispass_37wan_com<br> value：6ace1125|-1|5605d21a6ae2c7128e72cbab2axxxxxx|1<br> 说明：身份验证凭据，httpOnly，可以确定该cookie内携带了密码信息</p>
+<li><p>关键cookie<br> name：<strong>ispass_37wan_com </strong><br> value：6ace1125|-1|5605d21a6ae2c7128e72cbab2axxxxxx|1<br> 说明：身份验证凭据，httpOnly，可以确定该cookie内携带了密码信息</p>
 <p> name：<strong>passport_37wan_com </strong><br> value：704499552|xiaorui2016|1471421091000|e893376b48c81db281db07ed92xxxxxx<br> 说明：登录状态，非httpOnly，登录成功状态下携带用户信息，否则为”logout”。</p>
 <p> 以上两个cookie缺一不可，如果任意删掉其一，登录状态会被重置为登出。换言之，如果这两个cookie泄露了，黑客就可以不需要密码就可以登录你的账号。</p>
 </li>
@@ -256,8 +256,27 @@
 <li><p>简述：知乎网站的安全意识是极高的，除了一言不合就输入验证码之外。还做了应付xsrf攻击和防止爬取关系链等一系列完善的措施。更了不起的是整站都是启用了https（包含所有CDN节点），能够看出该站点在竭尽所能地保护用户信息安全。部分灵感来自于@YYChildren</p>
 </li>
 <li><p>登录：</p>
-<p> 请求地址：<a href="https://www.zhihu.com/login/email" target="_blank" rel="external">https://www.zhihu.com/login/email</a><br> 请求方式：POST<br> 请求参数：</p>
- <figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    _xsrf: a9044561281b58d0466ea768ed28479c    <span class="comment">//充当SessionId</span></div><div class="line">    password: <span class="number">2015</span>cccc    <span class="comment">//密码</span></div><div class="line">    captcha: xvek		  <span class="comment">//验证码</span></div><div class="line">    remember_me: <span class="keyword">true</span></div><div class="line">    email: xhsysu@<span class="number">126.</span>com	<span class="comment">//登录名</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></li>
+<p> 请求地址：<a href="https://www.zhihu.com/login/email" target="_blank" rel="external">https://www.zhihu.com/login/email</a><br> 请求方式：POST<br> 请求头：</p>
+ <figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="string">"X-Xsrftoken"</span>: a9044561281b58d0466ea768ed28479c</div><div class="line">    <span class="string">"Cookie"</span>: _xsrf=a9044561281b58d0466ea768ed28479c;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p> 请求参数：</p>
+ <figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="string">"_xsrf"</span>: a9044561281b58d0466ea768ed28479c    <span class="comment">//充当会话ID</span></div><div class="line">    <span class="string">"password"</span>: xiaorui2016    <span class="comment">//密码明文</span></div><div class="line">    <span class="string">"captcha"</span>: xvek                  <span class="comment">//验证码</span></div><div class="line">    <span class="string">"remember_me"</span>: <span class="keyword">true</span>        <span class="comment">//记住登录</span></div><div class="line">    <span class="string">"email"</span>: xiaorui@<span class="number">126.</span>com    <span class="comment">//用户名</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p> 响应格式：</p>
+ <figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="string">"r"</span>: <span class="number">0</span>,            <span class="comment">//请求结果，0表示无状态，就是成功的意思。1表示错误</span></div><div class="line">    <span class="string">"errcode"</span>: <span class="number">1991829</span>,    <span class="comment">//当r=1时，附带错误码信息</span></div><div class="line">    <span class="string">"data"</span>: &#123;&#125;                     <span class="comment">//数据</span></div><div class="line">    <span class="string">"msg"</span>: <span class="string">"登录成功"</span>       <span class="comment">//提示语</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>关于登录请求<br> 显然看到知乎登录请求比较特殊的地方：<br> 第一，<strong>密码是明文传输的，得益于整站覆盖了https</strong><br> 第二，<strong>XSRF防御</strong><br> 简单说一下<code>XSRF</code>攻击概念：攻击者盗用了你的身份，以你的名义发送恶意请求。一般通过服务端进行<code>XSRF</code>防御，服务端的<code>XSRF</code>方式方法很多样，但总的思想都是一致的，就是在客户端页面增加伪随机数。<br> 比如知乎这里做法就是：所有表单都包含同一个<strong>伪随机值</strong>，这个随机值在cookie里面也保存一份。提交表单的时候做检验。这样做是因为攻击者不能获得第三方的Cookie(理论上)，所以也就无法进行XSRF攻击了。</p>
+<p> 如果你想了解更多关于CSRF/XSRF的内容，可以参考以下链接，同时一般框架Yii、larval等也有CSRF的相关内容，你可以深入源代码了解哦！<br> 浅谈CSRF攻击方式：<a href="http://www.cnblogs.com/hyddd/archive/2009/04/09/1432744.html" target="_blank" rel="external">http://www.cnblogs.com/hyddd/archive/2009/04/09/1432744.html</a></p>
+<p> 第三，<strong>验证码</strong><br> 知乎登录是必定需要填写验证码，而且验证码的形式也是随机出现的，大大增加机器爆破的难度，以下是我看到的两个不同形式的验证：</p>
+</li>
+<li><p>关键cookie<br>name：<strong>z_c0</strong><br>value：Mi4wQUFCQThnSTFBQUFBY0VCT……|1473130391|5X094ceb64ce01ed37f31009e24308bd64eb6ede<br>说明：身份验证凭据，httpOnly，有三部分组成（用户身份token，登录时间，加密校验sign），拥有该cookie可以记住登录状态，虽然只有一个cookie，但是破解难度极高。每次请求都会得到新的token，旧的token会马上过期。换言之，如果无法知道加密算法几乎无法伪造cookie登录。而破解加密算法需要基于大量的样本，知乎关于防范多次注册/反复修改密码/找回密码等都有做处理，所以很难展开大量实验。</p>
+</li>
+<li><p>补充</p>
+<ul>
+<li>由于知乎自身定位和面向用户群体的原因，使得注册必须基于电话短信验证成为可能。在保证了用户真实性和可靠性的同时，也增强了网站安全性。</li>
+<li>另外关于如何防止水军，保证原创内容的健康良好地生长。知乎也有很多设计细节，有兴趣地同学可以拓展研究。</li>
+<li>修改密码方面，知乎会记录用户以前用过的所有密码，重置密码是不可以设置历史密码的。当然重置密码的请求也是明文的。</li>
+<li>关于知乎站点研究并不是很透彻，源于手上账号样本不多。</li>
+</ul>
+</li>
 </ol>
 
       
