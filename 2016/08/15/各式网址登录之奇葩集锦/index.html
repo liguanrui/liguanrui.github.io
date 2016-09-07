@@ -12,10 +12,13 @@
 <meta property="og:url" content="http://yoursite.com/2016/08/15/各式网址登录之奇葩集锦/index.html">
 <meta property="og:site_name" content="Shark’s blog">
 <meta property="og:description" content="前言学过编程的孩纸，都知道注册/登录是最基础的功能了。但是却不意味着是最简单的。这里的讨论范围都是基于网页应用的登录功能，由于受Http协议的限制，对于保护用户的账号安全，不同的网站有不同的方法（奇技淫巧）实现。">
-<meta property="og:updated_time" content="2016-09-06T03:56:32.143Z">
+<meta property="og:image" content="http://yoursite.com/img/blog/clipboard.png">
+<meta property="og:image" content="http://yoursite.com/img/blog/clipboard1.png">
+<meta property="og:updated_time" content="2016-09-07T02:28:06.664Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="各式网址登录之奇葩集锦">
 <meta name="twitter:description" content="前言学过编程的孩纸，都知道注册/登录是最基础的功能了。但是却不意味着是最简单的。这里的讨论范围都是基于网页应用的登录功能，由于受Http协议的限制，对于保护用户的账号安全，不同的网站有不同的方法（奇技淫巧）实现。">
+<meta name="twitter:image" content="http://yoursite.com/img/blog/clipboard.png">
   
     <link rel="alternative" href="/atom.xml" title="Shark’s blog" type="application/atom+xml">
   
@@ -265,7 +268,7 @@
 </li>
 <li><p>关于登录请求<br> 显然看到知乎登录请求比较特殊的地方：<br> 第一，<strong>密码是明文传输的，得益于整站覆盖了https</strong><br> 第二，<strong>XSRF防御</strong><br> 简单说一下<code>XSRF</code>攻击概念：攻击者盗用了你的身份，以你的名义发送恶意请求。一般通过服务端进行<code>XSRF</code>防御，服务端的<code>XSRF</code>方式方法很多样，但总的思想都是一致的，就是在客户端页面增加伪随机数。<br> 比如知乎这里做法就是：所有表单都包含同一个<strong>伪随机值</strong>，这个随机值在cookie里面也保存一份。提交表单的时候做检验。这样做是因为攻击者不能获得第三方的Cookie(理论上)，所以也就无法进行XSRF攻击了。</p>
 <p> 如果你想了解更多关于CSRF/XSRF的内容，可以参考以下链接，同时一般框架Yii、larval等也有CSRF的相关内容，你可以深入源代码了解哦！<br> 浅谈CSRF攻击方式：<a href="http://www.cnblogs.com/hyddd/archive/2009/04/09/1432744.html" target="_blank" rel="external">http://www.cnblogs.com/hyddd/archive/2009/04/09/1432744.html</a></p>
-<p> 第三，<strong>验证码</strong><br> 知乎登录是必定需要填写验证码，而且验证码的形式也是随机出现的，大大增加机器爆破的难度，以下是我看到的两个不同形式的验证：</p>
+<p> 第三，<strong>验证码</strong><br> 知乎登录是必定需要填写验证码，而且验证码的形式也是随机出现的，大大增加机器爆破的难度，以下是我看到的两个不同形式的验证：<br> <img src="/img/blog/clipboard.png" alt="验证码1"><br> <img src="/img/blog/clipboard1.png" alt="验证码1"></p>
 </li>
 <li><p>关键cookie<br>name：<strong>z_c0</strong><br>value：Mi4wQUFCQThnSTFBQUFBY0VCT……|1473130391|5X094ceb64ce01ed37f31009e24308bd64eb6ede<br>说明：身份验证凭据，httpOnly，有三部分组成（用户身份token，登录时间，加密校验sign），拥有该cookie可以记住登录状态，虽然只有一个cookie，但是破解难度极高。每次请求都会得到新的token，旧的token会马上过期。换言之，如果无法知道加密算法几乎无法伪造cookie登录。而破解加密算法需要基于大量的样本，知乎关于防范多次注册/反复修改密码/找回密码等都有做处理，所以很难展开大量实验。</p>
 </li>
