@@ -72,7 +72,7 @@
 						<li>Tags</li>
 						
 						
-						<li>Über</li>
+						<li>A propos</li>
 						
 					</ul>
 				</div>
@@ -109,7 +109,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/PHP/" style="font-size: 20px;">PHP</a> <a href="/tags/前端/" style="font-size: 15px;">前端</a> <a href="/tags/感悟/" style="font-size: 15px;">感悟</a> <a href="/tags/翻译/" style="font-size: 10px;">翻译</a>
+						<a href="/tags/PHP/" style="font-size: 20px;">PHP</a> <a href="/tags/前端/" style="font-size: 15px;">前端</a> <a href="/tags/感悟/" style="font-size: 15px;">感悟</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/翻译/" style="font-size: 10px;">翻译</a>
 					</div>
 				</section>
 				
@@ -177,11 +177,11 @@
 
       <div class="body-wrap">
   
-    <article id="post-如何建立你的日志系统" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-类型管理者" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/07/12/如何建立你的日志系统/" class="article-date">
-  	<time datetime="2015-07-11T16:00:00.000Z" itemprop="datePublished">2015-07-12</time>
+      <a href="/2015/07/18/类型管理者/" class="article-date">
+  	<time datetime="2015-07-17T16:00:00.000Z" itemprop="datePublished">2015-07-18</time>
 </a>
     </div>
   
@@ -194,7 +194,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2015/07/12/如何建立你的日志系统/">如何建立你的日志系统</a>
+      <a class="article-title" href="/2015/07/18/类型管理者/">类型管理者</a>
     </h1>
   
 
@@ -203,13 +203,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>这段时间<code>罐头</code>在开发公司的一个<code>工作流系统</code>，这个系统需要一个强壮的日志记录功能。基本需求如下：</p>
-<ol>
-<li>所有该系统的用户登录、登出需要记录日志</li>
-<li>用户在该系统进行的任何操作需要记录日志<br>（换言之，<code>所有数据库的增删改</code>都需要记录）</li>
-<li>在每个子功能下面显示动态模板，管理员可以方便地查看日志。日志必须正确地显示<code>每个字段的注释意义</code>，而且还需要显示<code>新值</code>和<code>旧值</code>。</li>
-<li>管理员可以为本子功能模块下面的日志添加和修改备注。</li>
-<li>管理可以操作批量展开/闭合日志，对日志列表顺序/逆序展示。
+        <h5 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h5><p><code>罐头</code>还在开发所谓的<code>工作流系统</code>，遇到一个关于状态管理的问题。这里记录一下问题描述和优化方案。</p>
+<h5 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h5><p>在你的系统不免需要维护很多key-value的状态值，比如：</p>
       
     </div>
     
@@ -224,7 +219,7 @@
 
       
         <p class="article-more-link">
-          <a  href="/2015/07/12/如何建立你的日志系统/#more">more >></a>
+          <a  href="/2015/07/18/类型管理者/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -288,6 +283,72 @@
       
         <p class="article-more-link">
           <a  href="/2015/07/12/每天写代码/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-如何建立你的日志系统" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/07/12/如何建立你的日志系统/" class="article-date">
+  	<time datetime="2015-07-11T16:00:00.000Z" itemprop="datePublished">2015-07-12</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/07/12/如何建立你的日志系统/">如何建立你的日志系统</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>这段时间<code>罐头</code>在开发公司的一个<code>工作流系统</code>，这个系统需要一个强壮的日志记录功能。基本需求如下：</p>
+<ol>
+<li>所有该系统的用户登录、登出需要记录日志</li>
+<li>用户在该系统进行的任何操作需要记录日志<br>（换言之，<code>所有数据库的增删改</code>都需要记录）</li>
+<li>在每个子功能下面显示动态模板，管理员可以方便地查看日志。日志必须正确地显示<code>每个字段的注释意义</code>，而且还需要显示<code>新值</code>和<code>旧值</code>。</li>
+<li>管理员可以为本子功能模块下面的日志添加和修改备注。</li>
+<li>管理可以操作批量展开/闭合日志，对日志列表顺序/逆序展示。
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PHP/">PHP</a></li></ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/2015/07/12/如何建立你的日志系统/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
