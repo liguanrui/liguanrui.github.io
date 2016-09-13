@@ -4,21 +4,18 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>类型管理者 | Shark’s blog</title>
+  <title>《饥荒》游戏代码研究 | Shark’s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言罐头还在开发所谓的工作流系统，遇到一个关于状态管理的问题。这里记录一下问题描述和优化方案。
-问题描述在你的系统不免需要维护很多key-value的状态值，比如：">
+  <meta name="description" content="代码与资源分布下面列出了饥荒中各个文件或文件夹的作用：（以 * 结尾的，该文件夹里就是一堆上面所说的类）12345678910111213141516171819202122232425262728293031├─bin  二进制程序文件├─data 数据目录│  ├─anim             放置动画│  ├─bigportraits     人物肖像纹理│  ├─fonts">
 <meta property="og:type" content="article">
-<meta property="og:title" content="类型管理者">
-<meta property="og:url" content="http://yoursite.com/2015/07/18/类型管理者/index.html">
+<meta property="og:title" content="《饥荒》游戏代码研究">
+<meta property="og:url" content="http://yoursite.com/2016/08/23/饥荒/index.html">
 <meta property="og:site_name" content="Shark’s blog">
-<meta property="og:description" content="前言罐头还在开发所谓的工作流系统，遇到一个关于状态管理的问题。这里记录一下问题描述和优化方案。
-问题描述在你的系统不免需要维护很多key-value的状态值，比如：">
-<meta property="og:updated_time" content="2016-07-04T07:33:12.079Z">
+<meta property="og:description" content="代码与资源分布下面列出了饥荒中各个文件或文件夹的作用：（以 * 结尾的，该文件夹里就是一堆上面所说的类）12345678910111213141516171819202122232425262728293031├─bin  二进制程序文件├─data 数据目录│  ├─anim             放置动画│  ├─bigportraits     人物肖像纹理│  ├─fonts">
+<meta property="og:updated_time" content="2016-09-13T08:58:19.765Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="类型管理者">
-<meta name="twitter:description" content="前言罐头还在开发所谓的工作流系统，遇到一个关于状态管理的问题。这里记录一下问题描述和优化方案。
-问题描述在你的系统不免需要维护很多key-value的状态值，比如：">
+<meta name="twitter:title" content="《饥荒》游戏代码研究">
+<meta name="twitter:description" content="代码与资源分布下面列出了饥荒中各个文件或文件夹的作用：（以 * 结尾的，该文件夹里就是一堆上面所说的类）12345678910111213141516171819202122232425262728293031├─bin  二进制程序文件├─data 数据目录│  ├─anim             放置动画│  ├─bigportraits     人物肖像纹理│  ├─fonts">
   
     <link rel="alternative" href="/atom.xml" title="Shark’s blog" type="application/atom+xml">
   
@@ -179,11 +176,11 @@
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="post-类型管理者" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-饥荒" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/07/18/类型管理者/" class="article-date">
-  	<time datetime="2015-07-17T16:00:00.000Z" itemprop="datePublished">2015-07-18</time>
+      <a href="/2016/08/23/饥荒/" class="article-date">
+  	<time datetime="2016-08-22T16:00:00.000Z" itemprop="datePublished">2016-08-23</time>
 </a>
     </div>
   
@@ -196,7 +193,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      类型管理者
+      《饥荒》游戏代码研究
     </h1>
   
 
@@ -205,7 +202,7 @@
       <div class="article-info article-info-post">
         
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PHP/">PHP</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/游戏/">游戏</a></li></ul>
 	</div>
 
         
@@ -216,43 +213,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h5 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h5><p><code>罐头</code>还在开发所谓的<code>工作流系统</code>，遇到一个关于状态管理的问题。这里记录一下问题描述和优化方案。</p>
-<h5 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h5><p>在你的系统不免需要维护很多key-value的状态值，比如：</p>
-<a id="more"></a>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">//任务的类型</div><div class="line">$task_catetype = array(</div><div class="line">	0=&gt;&quot;新增&quot;,</div><div class="line">	1=&gt;&quot;优化&quot;,</div><div class="line">	2=&gt;&quot;修复&quot;,</div><div class="line">);</div><div class="line"></div><div class="line">//用户的状态</div><div class="line">$user_state = array(</div><div class="line">	0=&gt;&quot;在职&quot;,</div><div class="line">	1=&gt;&quot;离职&quot;,</div><div class="line">);</div></pre></td></tr></table></figure>
-<p>维护这种数据结构无非两种途径：</p>
-<ol>
-<li>建立一个专门维护状态数组的类（option.class.php）,在类里面定义一些静态变量来维护这些状态数组。</li>
-<li>建立独立的数据表存储类型数组，由于状态值的定义各不相同。一般是一张主表对于一张状态值的表。<br>前者缺点不利于状态值的增删改，后者需要维护的数据表过多。</li>
-</ol>
-<h5 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h5><p>关键：所有状态值存放在一张表，通过model层提供状态值数组。</p>
-<p>思路：根据面向对象的思想，我们可以为系统抽象出一个<code>状态管理者</code>。这个状态管理负责维护系统所有状态数组（包含增删改）</p>
-<h4 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h4><ol>
-<li>设计通用的状态表，这里命名为<code>type_manger</code>。</li>
-</ol>
-<table>
-<thead>
-<tr>
-<th>id</th>
-<th>name</th>
-<th>relate_table</th>
-<th>relate_filed</th>
-<th>sort</th>
-<th>deleted</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>状态key</td>
-<td>状态名</td>
-<td>关联表</td>
-<td>关联字段</td>
-<td>排序</td>
-<td>删除</td>
-</tr>
-</tbody>
-</table>
-
+        <h3 id="代码与资源分布"><a href="#代码与资源分布" class="headerlink" title="代码与资源分布"></a>代码与资源分布</h3><p>下面列出了饥荒中各个文件或文件夹的作用：<br>（以 * 结尾的，该文件夹里就是一堆上面所说的类）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">├─bin  二进制程序文件</div><div class="line">├─data 数据目录</div><div class="line">│  ├─anim             放置动画</div><div class="line">│  ├─bigportraits     人物肖像纹理</div><div class="line">│  ├─fonts            字体文件</div><div class="line">│  ├─fx               好像是用来放置于天气相关纹理的</div><div class="line">│  ├─images           主要纹理放置目录</div><div class="line">│  ├─levels           放置地皮纹理</div><div class="line">│  ├─minimap          地图图标</div><div class="line">│  ├─models           未知，猜测与洞穴有关</div><div class="line">│  ├─scriptlibs       一些用lua实现的库，用来网络通信与json字符串处理</div><div class="line">│  ├─scripts          主要的lua脚本目录</div><div class="line">│  │  ├─behaviours        控制行为\*</div><div class="line">│  │  ├─brains            大脑AI\*</div><div class="line">│  │  ├─cameras           相机，用来控制玩家所能看到的视野\*</div><div class="line">│  │  ├─components        组件，一组通用的，用来描述物品的代码\*</div><div class="line">│  │  ├─languages         语言文件，国际化用的</div><div class="line">│  │  ├─map               地图相关代码\*</div><div class="line">│  │  │  ├─levels             世界模式，有生存，冒险，洞穴等等</div><div class="line">│  │  │  ├─rooms              Room</div><div class="line">│  │  │  ├─static_layouts     静态布局  </div><div class="line">│  │  │  └─tasks              Tasks，上面那些具体去看博客</div><div class="line">│  │  ├─nis               卖萌用的，直接在命令行运行，有只会动的大象^.^</div><div class="line">│  │  ├─prefabs           定义世界里所有的物品</div><div class="line">│  │  ├─scenarios         场景，也就是贴吧所说的彩蛋</div><div class="line">│  │  ├─screens           界面\*</div><div class="line">│  │  ├─stategraphs       状态机或状态图，用来和AI一起控制动物（和植物？）的运动</div><div class="line">│  │  └─widgets           界面小部件（按钮，文本框etc.）\*</div><div class="line">│  ├─shaders          未知</div><div class="line">│  └─sound            声音</div><div class="line">└─mods 插件放置目录</div></pre></td></tr></table></figure></p>
+<p>此外，data文件里还有DLC0001目录，这个目录来放置DLC版本的文件，结构和data目录一样。<br>链接：<a href="http://www.zhihu.com/question/23712973/answer/54225000" target="_blank" rel="external">http://www.zhihu.com/question/23712973/answer/54225000</a></p>
+<h3 id="mods开发"><a href="#mods开发" class="headerlink" title="mods开发"></a>mods开发</h3>
       
     </div>
     
@@ -261,18 +224,18 @@
     
 <nav id="article-nav">
   
-    <a href="/2015/08/13/strace的介绍与使用/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2016/09/13/redis/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          strace的介绍与使用
+          redis初探
         
       </div>
     </a>
   
   
-    <a href="/2015/07/12/如何建立你的日志系统/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">如何建立你的日志系统</div>
+    <a href="/2016/08/15/各式网址登录之奇葩集锦/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">各式网址登录之奇葩集锦</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -307,7 +270,7 @@
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="类型管理者" data-title="类型管理者" data-url="http://yoursite.com/2015/07/18/类型管理者/"></div>
+	<div class="ds-thread" data-thread-key="饥荒" data-title="《饥荒》游戏代码研究" data-url="http://yoursite.com/2016/08/23/饥荒/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
