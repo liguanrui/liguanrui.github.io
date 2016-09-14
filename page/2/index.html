@@ -72,7 +72,7 @@
 						<li>Tags</li>
 						
 						
-						<li>Über</li>
+						<li>About</li>
 						
 					</ul>
 				</div>
@@ -109,7 +109,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/PHP/" style="font-size: 20px;">PHP</a> <a href="/tags/前端/" style="font-size: 15px;">前端</a> <a href="/tags/感悟/" style="font-size: 15px;">感悟</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/游戏/" style="font-size: 10px;">游戏</a> <a href="/tags/翻译/" style="font-size: 10px;">翻译</a>
+						<a href="/tags/PHP/" style="font-size: 20px;">PHP</a> <a href="/tags/前端/" style="font-size: 15px;">前端</a> <a href="/tags/感悟/" style="font-size: 15px;">感悟</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/游戏/" style="font-size: 10px;">游戏</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/翻译/" style="font-size: 10px;">翻译</a>
 					</div>
 				</section>
 				
@@ -176,6 +176,67 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-关于OAuth2的登录问题追查" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/08/17/关于OAuth2的登录问题追查/" class="article-date">
+  	<time datetime="2015-08-16T16:00:00.000Z" itemprop="datePublished">2015-08-17</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/08/17/关于OAuth2的登录问题追查/">关于OAuth2的登录问题追查</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="案例回顾"><a href="#案例回顾" class="headerlink" title="案例回顾"></a>案例回顾</h3><p>一开始<code>测试人员</code>在做测试的时候，偶尔会冒出一个很奇怪的问题：同时3个人登陆，或者打某些页面。服务器会异常卡，最后宕掉！</p>
+<h3 id="问题追踪"><a href="#问题追踪" class="headerlink" title="问题追踪"></a>问题追踪</h3><h4 id="1-缓存过大？"><a href="#1-缓存过大？" class="headerlink" title="1. 缓存过大？"></a>1. 缓存过大？</h4><p>登陆需要注册session，session数据量比较大（包含整个权限数组！）<br>打开美术页面需要远程请求认证系统，获取整张用户表信息缓存起来。（\$this-&gt;cache-&gt;store(“userList”, $userList ) )<br>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PHP/">PHP</a></li></ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/2015/08/17/关于OAuth2的登录问题追查/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-strace的介绍与使用" class="article article-type-post" itemscope itemprop="blogPost">
   

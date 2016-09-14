@@ -72,7 +72,7 @@
 						<li>Tags</li>
 						
 						
-						<li>Über</li>
+						<li>About</li>
 						
 					</ul>
 				</div>
@@ -109,7 +109,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/PHP/" style="font-size: 20px;">PHP</a> <a href="/tags/前端/" style="font-size: 15px;">前端</a> <a href="/tags/感悟/" style="font-size: 15px;">感悟</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/游戏/" style="font-size: 10px;">游戏</a> <a href="/tags/翻译/" style="font-size: 10px;">翻译</a>
+						<a href="/tags/PHP/" style="font-size: 20px;">PHP</a> <a href="/tags/前端/" style="font-size: 15px;">前端</a> <a href="/tags/感悟/" style="font-size: 15px;">感悟</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/游戏/" style="font-size: 10px;">游戏</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/翻译/" style="font-size: 10px;">翻译</a>
 					</div>
 				</section>
 				
@@ -176,6 +176,69 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-一致性哈希" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/09/14/一致性哈希/" class="article-date">
+  	<time datetime="2016-09-13T16:00:00.000Z" itemprop="datePublished">2016-09-14</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/09/14/一致性哈希/">一致性哈希</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>作者：tomwhite<br>链接：<a href="https://community.oracle.com/blogs/tomwhite/2007/11/27/consistent-hashing">https://community.oracle.com/blogs/tomwhite/2007/11/27/consistent-hashing</a><br>来源：oracle community<br>著作权归作者所有，<code>罐头</code>翻译做笔记学习之。</p>
+<h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>举例说明，比如你有 N 个 cache 服务器（后面简称 cache ），那么如何将一个对象 object 映射到 N 个 cache 上呢？<br>你很可能会采用类似下面的通用方法计算 object 的 hash 值，然后均匀的映射到到 N 个 cache ；</p>
+<pre><code>hash(object)%N
+</code></pre>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/2016/09/14/一致性哈希/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-redis" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -266,7 +329,7 @@
         <p><img src="/img/blog/饥荒.jpg" alt="饥荒人物合集"></p>
 <h3 id="代码与资源分布"><a href="#代码与资源分布" class="headerlink" title="代码与资源分布"></a>代码与资源分布</h3><p>下面列出了饥荒中各个文件或文件夹的作用：<br>（以 * 结尾的，该文件夹里就是一堆上面所说的类）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">├─bin  二进制程序文件</div><div class="line">├─data 数据目录</div><div class="line">│  ├─anim             放置动画</div><div class="line">│  ├─bigportraits     人物肖像纹理</div><div class="line">│  ├─fonts            字体文件</div><div class="line">│  ├─fx               好像是用来放置于天气相关纹理的</div><div class="line">│  ├─images           主要纹理放置目录</div><div class="line">│  ├─levels           放置地皮纹理</div><div class="line">│  ├─minimap          地图图标</div><div class="line">│  ├─models           未知，猜测与洞穴有关</div><div class="line">│  ├─scriptlibs       一些用lua实现的库，用来网络通信与json字符串处理</div><div class="line">│  ├─scripts          主要的lua脚本目录</div><div class="line">│  │  ├─behaviours        控制行为\*</div><div class="line">│  │  ├─brains            大脑AI\*</div><div class="line">│  │  ├─cameras           相机，用来控制玩家所能看到的视野\*</div><div class="line">│  │  ├─components        组件，一组通用的，用来描述物品的代码\*</div><div class="line">│  │  ├─languages         语言文件，国际化用的</div><div class="line">│  │  ├─map               地图相关代码\*</div><div class="line">│  │  │  ├─levels             世界模式，有生存，冒险，洞穴等等</div><div class="line">│  │  │  ├─rooms              Room</div><div class="line">│  │  │  ├─static_layouts     静态布局  </div><div class="line">│  │  │  └─tasks              Tasks，上面那些具体去看博客</div><div class="line">│  │  ├─nis               卖萌用的，直接在命令行运行，有只会动的大象^.^</div><div class="line">│  │  ├─prefabs           定义世界里所有的物品</div><div class="line">│  │  ├─scenarios         场景，也就是贴吧所说的彩蛋</div><div class="line">│  │  ├─screens           界面\*</div><div class="line">│  │  ├─stategraphs       状态机或状态图，用来和AI一起控制动物（和植物？）的运动</div><div class="line">│  │  └─widgets           界面小部件（按钮，文本框etc.）\*</div><div class="line">│  ├─shaders          未知</div><div class="line">│  └─sound            声音</div><div class="line">└─mods 插件放置目录</div></pre></td></tr></table></figure></p>
 <p>此外，data文件里还有DLC0001目录，这个目录来放置DLC版本的文件，结构和data目录一样。<br>链接：<a href="http://www.zhihu.com/question/23712973/answer/54225000" target="_blank" rel="external">http://www.zhihu.com/question/23712973/answer/54225000</a></p>
-<h3 id="mods开发"><a href="#mods开发" class="headerlink" title="mods开发"></a>mods开发</h3><p>先mark一下，有空待续……</p>
+<h3 id="mods开发"><a href="#mods开发" class="headerlink" title="mods开发"></a>mods开发</h3><p>先mark一下，有空待续……<br><a href="http://wenku.baidu.com/link?url=W-Y30imQC_DkQT_AvTn6uqXjnTfFUSHIW2s1UI1TD7zZWF3KrY_9Z7XX1FmfPkHAH2foqM0F787xUbUPw8yHJaD7aNahGuR1BpAJ1CjEXk_" target="_blank" rel="external">http://wenku.baidu.com/link?url=W-Y30imQC_DkQT_AvTn6uqXjnTfFUSHIW2s1UI1TD7zZWF3KrY_9Z7XX1FmfPkHAH2foqM0F787xUbUPw8yHJaD7aNahGuR1BpAJ1CjEXk_</a></p>
 
       
     </div>
@@ -736,67 +799,6 @@
       
         <p class="article-more-link">
           <a  href="/2015/10/08/fis3阅读笔记/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-关于OAuth2的登录问题追查" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/08/17/关于OAuth2的登录问题追查/" class="article-date">
-  	<time datetime="2015-08-16T16:00:00.000Z" itemprop="datePublished">2015-08-17</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/08/17/关于OAuth2的登录问题追查/">关于OAuth2的登录问题追查</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="案例回顾"><a href="#案例回顾" class="headerlink" title="案例回顾"></a>案例回顾</h3><p>一开始<code>测试人员</code>在做测试的时候，偶尔会冒出一个很奇怪的问题：同时3个人登陆，或者打某些页面。服务器会异常卡，最后宕掉！</p>
-<h3 id="问题追踪"><a href="#问题追踪" class="headerlink" title="问题追踪"></a>问题追踪</h3><h4 id="1-缓存过大？"><a href="#1-缓存过大？" class="headerlink" title="1. 缓存过大？"></a>1. 缓存过大？</h4><p>登陆需要注册session，session数据量比较大（包含整个权限数组！）<br>打开美术页面需要远程请求认证系统，获取整张用户表信息缓存起来。（\$this-&gt;cache-&gt;store(“userList”, $userList ) )<br>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PHP/">PHP</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2015/08/17/关于OAuth2的登录问题追查/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
