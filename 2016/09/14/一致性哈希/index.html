@@ -22,7 +22,7 @@
 <meta property="og:image" content="http://yoursite.com/img/blog/hash/6.png">
 <meta property="og:image" content="http://yoursite.com/img/blog/hash/7.png">
 <meta property="og:image" content="http://yoursite.com/img/blog/hash/8.png">
-<meta property="og:updated_time" content="2016-09-14T06:23:49.246Z">
+<meta property="og:updated_time" content="2016-09-14T07:15:53.900Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="一致性哈希">
 <meta name="twitter:description" content="作者：tomwhite链接：https://community.oracle.com/blogs/tomwhite/2007/11/27/consistent-hashing来源：oracle community著作权归作者所有，罐头翻译做笔记学习之。
@@ -85,7 +85,7 @@
 						<li>Tags</li>
 						
 						
-						<li>About</li>
+						<li>Über</li>
 						
 					</ul>
 				</div>
@@ -237,7 +237,7 @@
 </code></pre><p>这两个问题意味着什么，这意味着突然之间几乎所有的cache都失效了，对于服务器而言，这简直是灾难性的毁灭。</p>
 <h3 id="一致性哈希的基本思想"><a href="#一致性哈希的基本思想" class="headerlink" title="一致性哈希的基本思想"></a>一致性哈希的基本思想</h3><p>要是能这样就好了，当一个缓存设备加入，可以使它对其他的缓存设备分享公平。同样的，当一个缓冲设备去除，它对应的对象可以被剩下的缓存设备负载。这实际上就是一致性哈希所在做，尽可能的情况下，一致性地在映射对象到缓冲设备中。</p>
 <p>基于一致性哈希算法背后的想法是对象o和缓冲设备n映射到同一个哈希数值空间中。做法是建立区间来管理缓冲设备，一个区间内对应一些对象，如果缓冲设备的值发生变化，那么它对应的区间将会被相邻的区间占据。</p>
-<h3 id="一致性哈希的算法原理"><a href="#一致性哈希的算法原理" class="headerlink" title="一致性哈希的算法原理"></a>一致性哈希的算法原理</h3><h4 id="环形哈希空间"><a href="#环形哈希空间" class="headerlink" title="环形哈希空间"></a>环形哈希空间</h4><p>这里要引入一个新的表示方法，也就是环形哈希空间，考虑到通常的哈希算法都是将一个任意长度二进制值映射位固定长度的二进制值（一般为32位），也就是说它的取值空间为0~(232-1)。我们可以把这个空间想象为一个首是0尾是(232-1)相接的圆环，</p>
+<h3 id="一致性哈希的算法原理"><a href="#一致性哈希的算法原理" class="headerlink" title="一致性哈希的算法原理"></a>一致性哈希的算法原理</h3><h4 id="环形哈希空间"><a href="#环形哈希空间" class="headerlink" title="环形哈希空间"></a>环形哈希空间</h4><p>这里要引入一个新的表示方法，也就是环形哈希空间，考虑到通常的哈希算法都是将一个任意长度二进制值映射位固定长度的二进制值（一般为32位），也就是说它的取值空间为0~($2^{32}$-1)。我们可以把这个空间想象为一个首是0尾是($2^{32}$-1)相接的圆环，</p>
 <p>如下图所示：<br><img src="/img/blog/hash/1.png" alt="环形哈希空间"></p>
 <h4 id="把object映射到哈希空间"><a href="#把object映射到哈希空间" class="headerlink" title="把object映射到哈希空间"></a>把object映射到哈希空间</h4><p>这里举例说明，比如有四个对象object1~object4，要分别对这四个对象算出其哈希值：<br>Hash（object1）= point1<br>Hash（object2）= point2<br>Hash（object3）= point3<br>Hash（object4）= point4<br><img src="/img/blog/hash/2.png" alt="把object映射到哈希空间"></p>
 <h4 id="把cache映射到哈希空间"><a href="#把cache映射到哈希空间" class="headerlink" title="把cache映射到哈希空间"></a>把cache映射到哈希空间</h4><p>这时一致性哈希与众不同的地方，cache和object使用同样的哈希算法也映射到哈市数值空间中。这里假设有3台cacheA、B、C。</p>
