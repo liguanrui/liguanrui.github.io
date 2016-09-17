@@ -12,7 +12,7 @@
 <meta property="og:url" content="http://yoursite.com/2016/09/13/redis/index.html">
 <meta property="og:site_name" content="Shark’s blog">
 <meta property="og:description" content="前言由于业务需要，我要了解一下内存数据库，之前有使用过memcache，对比于memcache，有另外一款叫redis的内存数据库更加吸引开发者的眼球。至于优缺点就不在这里叨絮了，以下直接摘录我的一些学习笔记。">
-<meta property="og:updated_time" content="2016-09-13T08:16:22.494Z">
+<meta property="og:updated_time" content="2016-09-17T03:56:38.493Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="redis初探">
 <meta name="twitter:description" content="前言由于业务需要，我要了解一下内存数据库，之前有使用过memcache，对比于memcache，有另外一款叫redis的内存数据库更加吸引开发者的眼球。至于优缺点就不在这里叨絮了，以下直接摘录我的一些学习笔记。">
@@ -216,6 +216,24 @@
         <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>由于业务需要，我要了解一下内存数据库，之前有使用过<code>memcache</code>，对比于<code>memcache</code>，有另外一款叫<code>redis</code>的内存数据库更加吸引开发者的眼球。至于优缺点就不在这里叨絮了，以下直接摘录我的一些学习笔记。<br><a id="more"></a></p>
 <h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root]# wget http://download.redis.io/releases/redis-3.2.3.tar.gz</div><div class="line">[root]# tar xvf redis-3.2.3.tar.gz</div><div class="line">[root]# cd redis-3.2.3</div><div class="line">[root]# make MALLOC=libc</div></pre></td></tr></table></figure>
 <h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"># 启动</div><div class="line">[root]# src/redis-server &amp;</div><div class="line"># 测试</div><div class="line">[root]# src/redis-cli</div><div class="line">127.0.0.1:6379&gt; set foo bar</div><div class="line">OK</div><div class="line">127.0.0.1:6379&gt; get foo</div><div class="line">&quot;bar&quot;</div><div class="line"># 关闭</div><div class="line">[root]# src/redis-cli shutdown</div></pre></td></tr></table></figure>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>推荐在生产环境中使用启动脚本方式启动redis服务。启动脚本<code>redis_init_script</code> 位于位于Redis的 /utils/ 目录下。</p>
+<ol>
+<li><p>确保守护进程开启 daemonize yes</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">vi redis.conf</div><div class="line"></div><div class="line"># By default Redis does not run as a daemon. Use &apos;yes&apos; if you need it.</div><div class="line"># Note that Redis will write a pid file in /var/run/redis.pid when daemonized.</div><div class="line">daemonize yes</div></pre></td></tr></table></figure>
+</li>
+<li><p>修改自启动脚本，<code>#!/bin/sh</code>下增加两行注。防止<code>service redisd does not support chkconfig</code>报错！</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">vi utils/redis_init_script</div><div class="line"></div><div class="line">#!/bin/sh</div><div class="line"># chkconfig:   2345 90 10</div><div class="line"># description:  Redis is a persistent key-value database</div><div class="line">#</div></pre></td></tr></table></figure>
+</li>
+<li><p>根据启动脚本要求，将修改好的配置文件以端口为名复制一份到指定目录。需使用root用户</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mkdir /etc/redis</div><div class="line">cp redis.conf /etc/redis/6379.conf</div></pre></td></tr></table></figure>
+</li>
+<li><p>将启动脚本复制到/etc/init.d目录下，本例将启动脚本命名为redisd（通常都以d结尾表示是后台自启动服务）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cp redis_init_script /etc/init.d/redisd</div></pre></td></tr></table></figure>
+</li>
+<li><p>设置为开机自启动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#设置为开机自启动服务器</div><div class="line">chkconfig redisd on</div><div class="line">#打开服务</div><div class="line">service redisd start</div><div class="line">#关闭服务</div><div class="line">service redisd stop</div></pre></td></tr></table></figure>
+</li>
+</ol>
 <h3 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h3><ol>
 <li><p>Strings - 字符串<br>命令：set、get，<br>字符串值可以存储最大512兆字节的长度</p>
 </li>
