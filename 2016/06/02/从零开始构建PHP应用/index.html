@@ -15,14 +15,16 @@
 <meta property="og:description" content="前言罐头做了决定，从MC离职了。犹豫和纠结了好些日子之后，接受了37的offer。来了才知道，我是开荒者啊，没有PHP开发人员，也没有PHP相关环境的服务器。所以入职第一天，我要从零开始构建PHP应用。这整一个过程真的好辛苦，以致我第一天上班就工作到23点。不禁让我想起了以前入职MC，第一周和小伙伴编译LFS，编译到凌晨才下班，大冬天在寒夜里追公交的场景……
 知识准备为了可以更好理解整个流程，这里">
 <meta property="og:image" content="http://yoursite.com/img/blog/install_php01.png">
-<meta property="og:image" content="http://yoursite.com/img/blog/install_php02.png">
-<meta property="og:image" content="http://yoursite.com/img/blog/install_php03.png">
 <meta property="og:image" content="http://yoursite.com/img/blog/install_php04.png">
 <meta property="og:image" content="http://yoursite.com/img/blog/install_php05.png">
+<meta property="og:image" content="http://yoursite.com/img/blog/install_php09.png">
+<meta property="og:image" content="http://yoursite.com/img/blog/install_php11.png">
+<meta property="og:image" content="http://yoursite.com/img/blog/install_php10.png">
+<meta property="og:image" content="http://yoursite.com/img/blog/install_php02.png">
 <meta property="og:image" content="http://yoursite.com/img/blog/install_php06.png">
 <meta property="og:image" content="http://yoursite.com/img/blog/install_php07.png">
 <meta property="og:image" content="http://yoursite.com/img/blog/install_php08.png">
-<meta property="og:updated_time" content="2016-08-22T01:49:12.568Z">
+<meta property="og:updated_time" content="2016-09-18T03:02:41.459Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从零开始构建PHP应用">
 <meta name="twitter:description" content="前言罐头做了决定，从MC离职了。犹豫和纠结了好些日子之后，接受了37的offer。来了才知道，我是开荒者啊，没有PHP开发人员，也没有PHP相关环境的服务器。所以入职第一天，我要从零开始构建PHP应用。这整一个过程真的好辛苦，以致我第一天上班就工作到23点。不禁让我想起了以前入职MC，第一周和小伙伴编译LFS，编译到凌晨才下班，大冬天在寒夜里追公交的场景……
@@ -202,7 +204,7 @@
 <li>虚拟机命名和位置</li>
 <li>自定义硬件（主要注意一下内存大小和网络，不懂的同学可以使用默认推荐设置）</li>
 <li>建立虚拟机之后再选择ISO路径，然后开始安装。</li>
-<li>系统盘成功引导后，出现下面的界面（到这里算成功一半了，继续加油）<br><img src="/img/blog/install_php01.png" alt="vm"></li>
+<li>系统盘成功引导后，出现下面的界面（到这里算成功一半了，继续加油）<br><img src="/img/blog/install_php01.png" alt="centos 安装引导界面"></li>
 <li>选择Install or upgrade an existing system 安装或升级现有的系统</li>
 <li>出现是否对CD媒体进行测试的提问，这里选择“Skip”跳过测试。</li>
 <li>选择语言 中文（简体）、美国英语式</li>
@@ -223,16 +225,18 @@
 <ul>
 <li>右击选择已创建好的虚拟机，选择设置，弹窗之后选择网络设配器</li>
 <li>在窗口右侧选择<code>使用NAT 模式（N）：用于共享主机的IP地址</code></li>
-<li>“编辑”-“虚拟网络编辑器”选中VMnet8，点选NAT（与虚拟机共享主机IP地址），把DHCP勾上（那两个框都勾上）。</li>
-<li>开启宿主机（windows10）中的VMware DHCP Service 和VMware NAT Service服务。</li>
-<li>手工配置ip，直接编辑 vi /etc/sysconfig/network-scripts/ifcfg-eth0<br>ifcfg-eth0 文件内容如下：<br><img src="/img/blog/install_php02.png" alt="net"><br>只需要按实际情况修改 DEVICE HWADDR NETMASK IPADDR 这几项即可<br>ipaddr可以通过寄主机获取，NAT使用的 VMware Network Adapter VMnet8 的网卡<br><img src="/img/blog/install_php03.png" alt="ip"><br>然后service network restart<br>再ping 下试试 是不是通了呢。 </li>
+<li>开启宿主机（windows10）中的VMware DHCP Service 和VMware NAT Service服务。（我的计算机-&gt;管理-&gt;服务）</li>
+<li>先把虚拟机关闭了 &gt; 编辑 &gt; 虚拟网络编辑器<br><img src="/img/blog/install_php04.png" alt="弹出虚拟网络编辑器"></li>
+<li>win10貌似要点击以下按钮，获得管理员权限<br><img src="/img/blog/install_php05.png" alt="获得管理员权限"></li>
+<li>选中<code>VMnet8 NAT模式</code>，然后选中<code>NAT模式（与虚拟机共享主机IP地址）</code>，勾上<code>将主机虚拟适配器连接到此网络</code>和<code>使用本地DHCP服务将IP地址分配给虚拟机</code>。<br>你可以自定义子网ip，也可以通过点击<code>还原默认配置</code>自动获得子网IP，我这里以<code>192.168.124.0</code>为例子<br><img src="/img/blog/install_php09.png" alt="虚拟网络编辑器"></li>
+<li>DHCP设置：<br><img src="/img/blog/install_php11.png" alt="DHCP设置"></li>
+<li>NAT设置，记下这里的<code>子网IP</code>，<code>子网掩码</code>，<code>网关IP(G)</code>。配置ifcfg-eth0时会用到<br><img src="/img/blog/install_php10.png" alt="NAT设置"></li>
+<li>手工配置ip，直接编辑 vi /etc/sysconfig/network-scripts/ifcfg-eth0<br>ifcfg-eth0 文件内容如下：<br><img src="/img/blog/install_php02.png" alt="ifcfg-eth0文件配置"><br>BOOTPROTO 设置为dhcp，<br>IPADDR 设置为上面NET设置里记下来的<code>子网IP</code><br>NETMASK （同上）<code>子网掩码</code><br>GATEWAY （同上）<code>网关IP(G)</code><br>然后service network restart<br>再ping 下寄主机的IP试试 是不是通了呢。 </li>
 </ul>
 </li>
 <li><p>配置把虚拟机的端口映射成宿主机端口，那么就可以在同一局域网网内可访问了。</p>
 <ul>
-<li>先把虚拟机关闭了 &gt; 编辑 &gt; 虚拟网络编辑器<br><img src="/img/blog/install_php04.png" alt="ip"></li>
-<li>win10貌似要点击以下按钮，获得管理员权限<br><img src="/img/blog/install_php05.png" alt="ip"></li>
-<li>选择VMnet8（NAT模式）-&gt;点击NAT设置<br><img src="/img/blog/install_php06.png" alt="ip"></li>
+<li>同理弹出虚拟网络编辑器（参考上面的）-&gt; 选中<code>VMnet8 NAT模式</code> -&gt;点击NAT设置<br><img src="/img/blog/install_php06.png" alt="ip"></li>
 <li>配置一个端口转发（没有点击添加，已有可以点击属性）<br><img src="/img/blog/install_php07.png" alt="ip"></li>
 <li>主要配置 [主机端口] [虚拟机端口] [虚拟机IP地址]</li>
 </ul>
