@@ -12,7 +12,7 @@
 <meta property="og:url" content="http://yoursite.com/2016/09/13/redis/index.html">
 <meta property="og:site_name" content="Lee’s blog">
 <meta property="og:description" content="前言由于业务需要，我要了解一下内存数据库，之前有使用过memcache，对比于memcache，有另外一款叫redis的内存数据库更加吸引开发者的眼球。至于优缺点就不在这里叨絮了，以下直接摘录我的一些学习笔记。">
-<meta property="og:updated_time" content="2016-09-17T07:11:19.867Z">
+<meta property="og:updated_time" content="2016-09-18T03:56:21.516Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="redis初探">
 <meta name="twitter:description" content="前言由于业务需要，我要了解一下内存数据库，之前有使用过memcache，对比于memcache，有另外一款叫redis的内存数据库更加吸引开发者的眼球。至于优缺点就不在这里叨絮了，以下直接摘录我的一些学习笔记。">
@@ -178,11 +178,11 @@
 <h3 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h3><ol>
 <li><p>Strings - 字符串<br>命令：set、get，<br>字符串值可以存储最大512兆字节的长度</p>
 </li>
-<li><p>Hashes - 哈希值<br>命令：hset、hmst、hget、hgetall，每个哈希可存储多达<code>$2^{32}$-1</code>个字段</p>
+<li><p>Hashes - 哈希值<br>命令：hset、hmst、hget、hgetall，每个哈希可存储多达$2^{32}$-1个字段</p>
 </li>
-<li><p>Lists - 列表<br>命令：lpush、lrange，排序插入顺序,列表的最大长度为<code>$2^{32}$-1</code>元素</p>
+<li><p>Lists - 列表<br>命令：lpush、lrange，排序插入顺序,列表的最大长度为$2^{32}$-1元素</p>
 </li>
-<li><p>Sets - 集合<br>命令：sadd、smembers，成员唯一性，成员中集最大数量为<code>$2^{32}$-1</code></p>
+<li><p>Sets - 集合<br>命令：sadd、smembers，成员唯一性，成员中集最大数量为$2^{32}$-1</p>
 </li>
 <li><p>Zsets - 集合排序<br>命令：zadd、zrange、zrangebyscore， 类似于<strong>集合</strong>，字符串不重复的<strong>有序集合</strong>，根据score排序</p>
 </li>
