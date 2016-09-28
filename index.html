@@ -156,52 +156,10 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><h5 id="最快安装："><a href="#最快安装：" class="headerlink" title="最快安装："></a>最快安装：</h5><p>yum install httpd-tools</p>
-<h5 id="源码安装："><a href="#源码安装：" class="headerlink" title="源码安装："></a>源码安装：</h5><p>yum install apr-util<br>yum -y install yum-utils<br>yumdownloader httpd-tools<br>rpm2cpio httpd-*.rpm | cpio -idmv</p>
-<h5 id="window安装："><a href="#window安装：" class="headerlink" title="window安装："></a>window安装：</h5><ul>
-<li>进入<a href="http://httpd.apache.org/download.cgi" target="_blank" rel="external">http://httpd.apache.org/download.cgi</a></li>
-<li>选择Files for Microsoft Windows</li>
-<li>进去之后再选择ApacheHaus，第二个也是独立的Apache下载地址，另外三个是集成开发环境</li>
-<li>在新页面会 发现VC9和VC11字样，VC9是指用VS2008编译的代码，而VC11是用VS2012编译的，而用VS2012编译的无法在windows xp和server 2003中使用。这里选择VC9编译的64位Apache</li>
-<li>本人下载 解压 重命名 至 F:\Apache24</li>
-<li>修改配置：F:\Apache24\conf\httpd.conf，<br> Define SRVROOT “F:/Apache24”<br> Listen 80</li>
-<li>到 C:\Windows\System32 找到cmd.exe 使用管理员身份运行</li>
-<li><p>打开CMD窗口，输入：”F:\Apache24\bin\httpd.exe” -k install -n apache<br> 切记，包含引号。该命令的意思是，安装apache服务，并将该服务名称命名为apache(你也可以改成别的)，回车。</p>
-<p> 正常安装完毕如下图所示：</p>
-<p> 其中，Errors reported here must be corrected before the service can be started.意思是，若该句话后面有错误信息，则表示服务安装失败，需要先改正错误。若没有，则成功。</p>
-</li>
-<li><p>在安装目录中，找到F:\Apache24\bin\ApacheMonitor.exe可执行文件，双击运行，桌面右下角会出现图标。</p>
-</li>
-<li>点击图标会出现窗口，点击左侧start，启动apache服务。</li>
-</ul>
-<h4 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h4><p>使用ab或者webbench做压力测试，如果并发数开到1000的时候，无法完成测试。到晚上查看资料发现是linux网络参数设置。</p>
-<h5 id="方法一："><a href="#方法一：" class="headerlink" title="方法一："></a>方法一：</h5><p>longhao@longhao etc]# vi /etc/sysctl.conf<br>在kernel2.6之前的添加项：<br>net.ipv4.netfilter.ip_conntrack_max = 655360<br>net.ipv4.netfilter.ip_conntrack_tcp_timeout_established = 180<br>kernel2.6之后的添加项：<br>net.nf_conntrack_max = 655360  # net.nf_conntrack_max = 655360 也可以<br>net.netfilter.nf_conntrack_tcp_timeout_established = 1200<br>[longhao@longhao etc]# sysctl -p /etc/sysctl.conf<br>如果报错：error: “net.nf_conntrack_max” is an unknown key 则需要使用modprobe载入ip_conntrack模块，lsmod查看模块已载入。<br>[longhao@longhao etc]# modprobe  ip_conntrack</p>
-<h5 id="方法二："><a href="#方法二：" class="headerlink" title="方法二："></a>方法二：</h5><p>按如下修改 Apache 源码目录下 support/ab.c 文件，重新编译安装。</p>
-<pre><code>elseif(status != APR_SUCCESS) {
-    err_recv++;
-    if(recverrok) {
-        bad++;
-        close_connection(c);
-        if(verbosity &gt;= 1) {
-            charbuf[120];
-            fprintf(stderr,&quot;%s: %s (%d)\n&quot;, &quot;apr_socket_recv&quot;, apr_strerror(status, buf, sizeofbuf), status);
-       }
-        return;
-   } else{
-        bad++;                                 //添加
-        close_connection(c);                   //添加
-        //apr_err(&quot;apr_socket_recv&quot;, status);  //注释
-       return;    //添加
-    }
-}
-</code></pre><h4 id="简单使用"><a href="#简单使用" class="headerlink" title="简单使用"></a>简单使用</h4><p>模拟100个并发用户，对一个页面发送1000个请求<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">./ab -n1000 -c100 http://github.com/</div><div class="line">#其中-n代表请求数，-c代表并发数</div></pre></td></tr></table></figure></p>
-<h4 id="性能指标"><a href="#性能指标" class="headerlink" title="性能指标"></a>性能指标</h4><ul>
-<li>吞吐率（Requests per second）<br>吞吐率和并发用户数相关<br>不同的并发用户数下，吞吐率一般是不同的</li>
-<li>并发连接数（The number of concurrent connections）</li>
-<li>并发用户数（Concurrency Level）</li>
-<li>用户平均请求等待时间（Time per request）</li>
-<li>服务器平均请求等待时间（Time per request:across all concurrent requests）</li>
-</ul>
-
+<h5 id="源码安装："><a href="#源码安装：" class="headerlink" title="源码安装："></a>源码安装：</h5><p>yum install apr-util<br>yum -y install yum-utils<br>yumdownloader httpd-tools<br>rpm2cpio httpd-*.rpm | cpio -idmv<br>
+        <p class="article-more-link">
+          <a  href="/2016/09/28/AB工具/#more">more >></a>
+        </p>
       
     </div>
     <div class="article-info article-info-index">
