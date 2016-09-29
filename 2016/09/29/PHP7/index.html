@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>php 7 | Lee’s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前言为了在上线前保证router的安全和高效。罐头最近反复在优化代码，手忙脚乱的，周五差点还把公司给的这台笔记本给弄炸了。幸好运维大大给我修好了。使用了AB工具进行压测之后，发现结果并不让人满意。开始着手尝试一下PHP7，或者是Yaf之类的。
+基本任务：在同一台虚拟机装两个版本的PHP，便于比较和测试。
+准备
+先备份一下虚拟机，做一个快照
+再备份一下PHP 5.6的配置
+准备php 7的安装
+
+安">
+<meta property="og:type" content="article">
+<meta property="og:title" content="php 7">
+<meta property="og:url" content="http://yoursite.com/2016/09/29/PHP7/index.html">
+<meta property="og:site_name" content="Lee’s blog">
+<meta property="og:description" content="前言为了在上线前保证router的安全和高效。罐头最近反复在优化代码，手忙脚乱的，周五差点还把公司给的这台笔记本给弄炸了。幸好运维大大给我修好了。使用了AB工具进行压测之后，发现结果并不让人满意。开始着手尝试一下PHP7，或者是Yaf之类的。
+基本任务：在同一台虚拟机装两个版本的PHP，便于比较和测试。
+准备
+先备份一下虚拟机，做一个快照
+再备份一下PHP 5.6的配置
+准备php 7的安装
+
+安">
+<meta property="og:updated_time" content="2016-09-29T06:54:47.169Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="php 7">
+<meta name="twitter:description" content="前言为了在上线前保证router的安全和高效。罐头最近反复在优化代码，手忙脚乱的，周五差点还把公司给的这台笔记本给弄炸了。幸好运维大大给我修好了。使用了AB工具进行压测之后，发现结果并不让人满意。开始着手尝试一下PHP7，或者是Yaf之类的。
+基本任务：在同一台虚拟机装两个版本的PHP，便于比较和测试。
+准备
+先备份一下虚拟机，做一个快照
+再备份一下PHP 5.6的配置
+准备php 7的安装
+
+安">
+  
+    <link rel="alternative" href="/atom.xml" title="Lee’s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="//img/tim.ico">
+  
+  <script src="/style.js"></script>
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/author.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Lee</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">Lee’s blog,My study notes</p>
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+				<li><a href="/tags/感悟/">感悟</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a class="js-smart-menu" data-idx="0" href="javascript:void(0)">所有文章</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="1" href="javascript:void(0)">标签</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="2" href="javascript:void(0)">关于我</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/liguanrui" title="github">github</a>
+		        
+					<a class="weibo" target="_blank" href="http://weibo.com/u/2013245482" title="weibo">weibo</a>
+		        
+					<a class="rss" target="_blank" href="#" title="rss">rss</a>
+		        
+					<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-list"></i></div>
+  		<h1 class="header-author js-mobile-header hide">Lee</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img src="/img/author.jpg" class="js-avatar">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Lee</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">Lee’s blog,My study notes</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/tags/感悟/">感悟</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/liguanrui" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/u/2013245482" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="#" title="rss">rss</a>
+			        
+						<a class="zhihu" target="_blank" href="#" title="zhihu">zhihu</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap">
+        <article id="post-PHP7" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      php 7
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>为了在上线前保证<code>router</code>的安全和高效。<code>罐头</code>最近反复在优化代码，手忙脚乱的，周五差点还把公司给的这台笔记本给弄炸了。幸好运维大大给我修好了。使用了AB工具进行压测之后，发现结果并不让人满意。开始着手尝试一下PHP7，或者是Yaf之类的。</p>
+<p>基本任务：在同一台虚拟机装两个版本的PHP，便于比较和测试。</p>
+<h4 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h4><ul>
+<li>先备份一下虚拟机，做一个快照</li>
+<li>再备份一下<code>PHP 5.6</code>的配置</li>
+<li>准备<code>php 7</code>的安装</li>
+</ul>
+<h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div></pre></td><td class="code"><pre><div class="line">[root]# cd /dist/src/</div><div class="line">[root]# wget http://cn2.php.net/distributions/php-7.0.11.tar.gz</div><div class="line">[root]# tar xzf php-7.0.11.tar.gz</div><div class="line"></div><div class="line"># 注意目录前缀要修改一下为 php7</div><div class="line">[root]# ./configure --prefix=/usr/local/php7 --with-config-file-scan-dir=/etc/php7 --with-pdo-mysql=/usr/local/mysql/bin/mysql_config --with-mysqli=/usr/local/mysql/bin/mysql_config --with-iconv-dir=/usr/local --with-freetype-dir --with-jpeg-dir --with-png-dir --enable-gd-native-ttf --enable-zip --with-zlib --with-gd --disable-rpath --enable-bcmath --enable-shmop --enable-sysvsem --with-curl --enable-mbstring --with-mcrypt --disable-ipv6 --enable-static --enable-maintainer-zts --enable-sockets --enable-soap --with-openssl --without-pdo-sqlite --enable-fpm --with-unixODBC=/usr/ --enable-opcache</div><div class="line"></div><div class="line">#我这边编译完之后，发现一个报错</div><div class="line">error: ODBC header file &apos;/usr//include/sqlext.h&apos; not found!</div><div class="line">原来缺少一个unixODBC库</div><div class="line">[root]# yum -y install unixODBC*</div><div class="line"></div><div class="line">#编译通过，继续</div><div class="line">[root]# make</div><div class="line"></div><div class="line">#再次发现错误</div><div class="line">collect2: ld returned 1 exit status</div><div class="line">make: *** [sapi/cli/php] Error 1</div><div class="line">主要原因：没給到要 link 的 iconv 函式库参数</div><div class="line">解决方法：编辑Makefile 大约77 行左右的地方: EXTRA_LIBS = ..... -lcrypt 在最后加上 -liconv</div><div class="line"></div><div class="line">#继续</div><div class="line">[root]# make install</div><div class="line"></div><div class="line">#安装成功</div><div class="line">[root]# /usr/local/php7/bin/php -v</div><div class="line">PHP 7.0.11 (cli) (built: Sep 28 2016 04:55:47) ( ZTS )</div><div class="line">Copyright (c) 1997-2016 The PHP Group</div><div class="line">Zend Engine v3.0.0, Copyright (c) 1998-2016 Zend Technologies</div><div class="line"></div><div class="line">[root]# php -v</div><div class="line">PHP 5.6.22 (cli) (built: Jun  3 2016 11:44:17) </div><div class="line">Copyright (c) 1997-2016 The PHP Group</div><div class="line">Zend Engine v2.6.0, Copyright (c) 1998-2016 Zend Technologies</div><div class="line">    with Zend Guard Loader v3.3, Copyright (c) 1998-2014, by Zend Technologies</div><div class="line"></div><div class="line"></div><div class="line">#进行配置</div><div class="line">[root]# cp -f /dist/src/php-7.0.11/php.ini-production /etc/php7/php.ini</div><div class="line">#php-fpm配置</div><div class="line">[root]# cp -f /dist/src/php-7.0.11/sapi/fpm/init.d.php-fpm /etc/init.d/php7-fpm</div><div class="line">[root]# chmod +x /etc/init.d/php7-fpm</div><div class="line">[root]# cd /usr/local/php7/etc/</div><div class="line">[root]# cp -f php-fpm.conf.default php-fpm.conf</div><div class="line">[root]# cp -f php-fpm.d/www.conf.default php-fpm.d/www.conf</div><div class="line"></div><div class="line">#修改内容</div><div class="line">[root]# vi www.conf</div><div class="line">user = www</div><div class="line">group = www</div><div class="line">listen = /tmp/php7-cgi.sock</div><div class="line">listen.owner = www</div><div class="line">listen.group = www</div><div class="line">listen.mode = 0660</div><div class="line"></div><div class="line">#启动PHP</div><div class="line">[root]# /etc/init.d/php7-fpm start</div><div class="line">Starting php-fpm  done</div><div class="line"></div><div class="line">#ngnix配置</div><div class="line">location ~ .*\.php$</div><div class="line">&#123;</div><div class="line">    include fastcgi.conf;</div><div class="line">    fastcgi_pass  unix:/tmp/php7-cgi.sock;  //使用PHP7</div><div class="line">    fastcgi_index index.php;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="压测"><a href="#压测" class="headerlink" title="压测"></a>压测</h4><h5 id="硬件平台"><a href="#硬件平台" class="headerlink" title="硬件平台"></a>硬件平台</h5><ul>
+<li>CPU:  Intel(R) Core(TM) i5-4200U CPU @ 1.60GHz</li>
+<li>RAM: 1GB</li>
+</ul>
+<h5 id="软件环境"><a href="#软件环境" class="headerlink" title="软件环境"></a>软件环境</h5><ul>
+<li>nginx/1.10.0</li>
+<li>php 5.6.22</li>
+<li>php 7.0.11</li>
+<li>yii2</li>
+</ul>
+<h5 id="比较结果"><a href="#比较结果" class="headerlink" title="比较结果"></a>比较结果</h5><ul>
+<li>普通路由 <code>ab -c 100 -n 1000</code> </li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>版本</th>
+<th>Requests per second [#/s]</th>
+<th>Time per request [ms]</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>php 5.6.22</td>
+<td>131.35</td>
+<td>761.335</td>
+<td></td>
+</tr>
+<tr>
+<td>php 7.0.11</td>
+<td>231.38</td>
+<td>432.196</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>ORM操作 <code>ab -c 100 -n 1000</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>版本</th>
+<th>Requests per second [#/s]</th>
+<th>Time per request [ms]</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>php 5.6.22</td>
+<td>96.47</td>
+<td>1036.601</td>
+<td></td>
+</tr>
+<tr>
+<td>php 7.0.11</td>
+<td>146.56</td>
+<td>682.297</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>复杂操作（路由+ORM+模板渲染） <code>ab -c 100 -n 1000</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>版本</th>
+<th>Requests per second [#/s]</th>
+<th>Time per request [ms]</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>php 5.6.22</td>
+<td>58.07</td>
+<td>1721.985</td>
+<td></td>
+</tr>
+<tr>
+<td>php 7.0.11</td>
+<td>95.82</td>
+<td>1043.623</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>制造一个10万的数组，并且逐个使用<code>array_key_exists</code>遍历<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">[root]# time php test.php </div><div class="line">real    0m0.171s</div><div class="line">user    0m0.121s</div><div class="line">sys     0m0.046s</div><div class="line"></div><div class="line">[root]# time /usr/local/php7/bin/php test.php </div><div class="line">real    0m0.031s</div><div class="line">user    0m0.023s</div><div class="line">sys     0m0.007s</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>由于个人虚拟机比较破，选取的样本数量虽然也不多，但是还是能看出性能差异的！有空再来介绍PHP7的新特性</p>
+</blockquote>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/09/29/PHP7/" class="archive-article-date">
+  	<time datetime="2016-09-28T16:00:00.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-09-29</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2016/09/28/AB工具/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">AB工具</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+	    <a class="jiathis_button_twitter"></a>
+	    <a class="jiathis_button_plus"></a> 
+	    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+<div class="share_addthis share_jia">
+  <div class="sharing addthis_toolbox share">
+  	<span class="jiathis_txt">Share to: &nbsp; </span>
+    <a class="addthis_button_facebook_like"></a>
+    <a class="addthis_button_tweet"></a>
+    <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-560c64c35486b3d4" async="async"></script>
+</div>
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="PHP7" data-title="php 7" data-url="http://yoursite.com/2016/09/29/PHP7/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 Lee
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		root: "/"
+	}
+</script>
+
+<script src="/./main.js"></script>
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+    
+<div class="tools-col">
+  <ul class="btn-wrap">
+    
+      <li class="chose" data-hook="tools-section-all"><span class="text">全部</span><i class="icon-book"></i></li>
+    
+    
+      <li data-hook="tools-section-tag"><span class="text">标签</span><i class="icon-price-tags"></i></li>
+    
+    
+    
+      <li data-hook="tools-section-me"><span class="text">我</span><i class="icon-smile"></i></li>
+    
+  </ul>
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all chose">
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-tag">
+    			<div class="widget tagcloud" id="js-tagcloud">
+    				<a href="/tags/Lua/" style="font-size: 10px;">Lua</a> <a href="/tags/PHP/" style="font-size: 20px;">PHP</a> <a href="/tags/php/" style="font-size: 10px;">php</a> <a href="/tags/前端/" style="font-size: 15px;">前端</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/性能/" style="font-size: 10px;">性能</a> <a href="/tags/感悟/" style="font-size: 15px;">感悟</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/游戏/" style="font-size: 10px;">游戏</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/翻译/" style="font-size: 15px;">翻译</a>
+    			</div>
+    	</section>
+    
+
+    
+
+    
+    	<section class="tools-section tools-section-me">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">罐头很懒 (⊙v⊙)&lt;br&gt;&lt;br&gt;工作日日常 :&lt;br&gt;do {&lt;br&gt;&amp;nbsp;&amp;nbsp;打代码&lt;br&gt;} while ( 发呆 || 吃饭 )&lt;br&gt;&lt;br&gt;周末日常 :&lt;br&gt;( 鱼罐头 || 午餐肉 || 炸鸡块 ) +&lt;br&gt;( 罐可乐 || 瓶啤酒 ) +&lt;br&gt;( 盒仔饭 || 艇仔粥 || 即食面 ) +&lt;br&gt;( 轻音乐 || 肥皂剧 || 热网综 ) +&lt;br&gt;( 水果糖 || 甜布丁 )</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>
